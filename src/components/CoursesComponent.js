@@ -38,6 +38,9 @@ class CoursesComponent extends Component {
             <div className="container">
                 <h3>All courses</h3>
                 <div className="container">
+                    <button className="btn btn-primary p-2 mb-2"
+                        onClick={() => this.props.history.push("/new-course")}>
+                        Add a new course</button>
                     {
                         this.state.error &&
                         <div className="alert alert-danger">{this.state.message}</div>

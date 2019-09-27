@@ -10,6 +10,10 @@ class CourseService{
     deleteCourse(id){
         return axios.delete(`${COURSE_API_URL}/delete/${id}`);
     }
+
+    createCourse(data){
+        return axios.post(`${COURSE_API_URL}/save`)
+    }
 }
 
 export default new CourseService();
