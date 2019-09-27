@@ -7,7 +7,7 @@ class CoursesComponent extends Component {
         super(props);
         this.state = {
             courses: [],
-            message: ""
+            message: null
         };
         this.refreshCourses = this.refreshCourses.bind(this);
     }
@@ -22,9 +22,13 @@ class CoursesComponent extends Component {
                 response => {
                     console.log("Finding all courses");
                     console.log(response);
-                    this.setState({courses: response.data});
+                    this.setState({courses: response.data, message: "Courses are loaded"});
                 }
-            )
+            ).catch(error => {
+                    console.log("findAllCourses: ERROR");
+                    console.log(error);
+                    this.setState({message: error.message});
+            });
     }
 
     render() {
@@ -40,6 +44,14 @@ class CoursesComponent extends Component {
                         </tr>
                         </thead>
                         <tbody>
+                        {
+                            <tr>
+                                <td colSpan="2">
+                                    {this.state.message &&
+                                    <div className="alert alert-danger">{this.state.message}</div>}
+                                </td>
+                            </tr>
+                        }
                         {
                             this.state.courses.map(
                                 course =>
