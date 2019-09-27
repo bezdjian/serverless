@@ -6,6 +6,10 @@ class CourseService{
     findAllCourses(){
         return axios.get(`${COURSE_API_URL}/all`);
     }
+
+    deleteCourse(id){
+        return axios.delete(`${COURSE_API_URL}/delete/${id}`);
+    }
 }
 
 export default new CourseService();

@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import CourseService from "../services/CourseService";
 
+import book from '../images/book.jpg';
+
 class CoursesComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             courses: [],
-            message: null
+            message: null,
+            error: null
         };
         this.refreshCourses = this.refreshCourses.bind(this);
     }
@@ -20,15 +23,14 @@ class CoursesComponent extends Component {
         CourseService.findAllCourses()
             .then(
                 response => {
-                    console.log("Finding all courses");
-                    console.log(response);
-                    this.setState({courses: response.data, message: "Courses are loaded"});
+                    console.log("Finding all courses, size " + response.data.length);
+                    console.log(response.data);
+                    this.setState({courses: response.data, message: "Courses are loaded", error: null});
                 }
             ).catch(error => {
-                    console.log("findAllCourses: ERROR");
-                    console.log(error);
-                    this.setState({message: error.message});
-            });
+            console.log("findAllCourses: ERROR: " + error.message);
+            this.setState({error: error, message: error.message});
+        });
     }
 
     render() {
@@ -36,36 +38,44 @@ class CoursesComponent extends Component {
             <div className="container">
                 <h3>All courses</h3>
                 <div className="container">
-                    <table className="table">
-                        <thead>
-                        <tr>
-                            <td>Id</td>
-                            <td>Description</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            <tr>
-                                <td colSpan="2">
-                                    {this.state.message &&
-                                    <div className="alert alert-danger">{this.state.message}</div>}
-                                </td>
-                            </tr>
-                        }
+                    {
+                        this.state.error &&
+                        <div className="alert alert-danger">{this.state.message}</div>
+                    }
+                    <div className="card-columns" key="cardsKey">
                         {
                             this.state.courses.map(
                                 course =>
-                                    <tr key={course.id}>
-                                        <td>{course.id}</td>
-                                        <td>{course.coursename}</td>
-                                    </tr>
+                                    <div className="card bg-light" key={course.id}>
+                                        <img className="card-img-top" key={course.id} src={book}
+                                             alt={course.coursename}/>
+                                        <div className="card-body">
+                                            <h4 className="card-title">{course.coursename}</h4>
+                                            <p className="card-text">{course.description}</p>
+                                            <p className="card-text">Category: {course.courseCategory.name}</p>
+                                            <p className="card-link">Price: {course.price}:-</p>
+                                            <button className="btn btn-outline-danger"
+                                                onClick={() => this.deleteCourseClicked(course.id)}>Delete</button>
+                                        </div>
+                                    </div>
                             )
                         }
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
         )
+    }
+
+    deleteCourseClicked(id){
+        CourseService.deleteCourse(id)
+            .then(
+                response => {
+                    console.log("Delete response");
+                    console.log(response.data);
+                    this.setState({message: `Course with id ${id} deleted`});
+                    this.refreshCourses();
+                }
+            )
     }
 }
 
