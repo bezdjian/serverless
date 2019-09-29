@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const COURSE_API_URL = 'http://localhost:8080/api/course';
+const COURSE_API_URL = 'http://localhost:8080/mylms-service/api/course';
 
 class CourseService{
     findAllCourses(){
@@ -12,7 +12,9 @@ class CourseService{
     }
 
     createCourse(data){
-        return axios.post(`${COURSE_API_URL}/save`)
+        return axios.post(`${COURSE_API_URL}/save`, data, {
+            headers: {'Content-Type': 'application/json'}
+        });
     }
 }
 
