@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const COURSE_API_URL = 'http://localhost:8080/mylms-service/api/course';
+const CATEGORY_API_URL = 'http://localhost:8080/mylms-service/api/course/category';
 
 class CourseService{
     findAllCourses(){
@@ -15,6 +16,10 @@ class CourseService{
         return axios.post(`${COURSE_API_URL}/save`, data, {
             headers: {'Content-Type': 'application/json'}
         });
+    }
+
+    loadCategories(){
+        return axios.get(`${CATEGORY_API_URL}/all`);
     }
 }
 

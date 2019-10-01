@@ -12,7 +12,8 @@ class NewCourseComponent extends Component {
                 description: "",
                 price: "",
                 category: 1
-            }
+            },
+            categories: []
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCourseNameChange= this.handleCourseNameChange.bind(this);
@@ -20,6 +21,10 @@ class NewCourseComponent extends Component {
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleIdNumberChange = this.handleIdNumberChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
+    }
+
+    componentDidMount(){
+        this.loadCategories();
     }
 
     refreshCourses() {
@@ -34,6 +39,17 @@ class NewCourseComponent extends Component {
             console.log("findAllCourses: ERROR: " + error.message);
             this.setState({error: error, message: error.message});
         });
+    }
+
+    loadCategories(){
+        CourseService.loadCategories()
+            .then(
+                response => {
+                    console.log("Categories loaded..");
+                    console.log(response.data);
+                    this.setState({categories: response.data});
+                }
+            )
     }
 
 
@@ -67,9 +83,11 @@ class NewCourseComponent extends Component {
                             name="category" value={this.state.course.category}
                             onChange={this.handleCategoryChange}
                             se="1">
-                            <option value="1">adwd 1</option>
-                            <option value="2">adwd 2</option>
-                            <option value="3">adwd 3</option>
+                                {this.state.categories.map(
+                                    (cat) => (
+                                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                                    )
+                                )}
                         </select>
                     </div>
                     <button type="submit" className="btn btn-primary">Add</button>
@@ -125,11 +143,11 @@ class NewCourseComponent extends Component {
     }
 
     handleSubmit(event) {
-        console.log("*** this.state.course ***");
+        event.preventDefault();
+        console.log("*** Form values in this.state.course ***");
         console.log(this.state.course);
         CourseService.createCourse(this.state.course);
         this.props.history.push('/courses');
-        event.preventDefault();
         this.refreshCourses();
     }
 }
