@@ -203,11 +203,11 @@ class ViewEditCourseComponent extends Component {
     event.preventDefault();
     console.log('*** Form values in this.state.course ***');
     console.log(this.state.course);
-    //CourseService.createCourse(this.state.course);
-    //this.props.history.push('/courses');
-    //this.refreshCourses();
     console.log('*** Checking form values ***');
     console.log(this.validateFields());
+    CourseService.createCourse(this.state.course);
+    this.refreshCourses();
+    this.props.history.push('/courses');    
   }
 
   validateFields() {

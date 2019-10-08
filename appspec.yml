@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: ./build
+    destination: /home/ec2-user/
+    #destination: /home/ec2-user/
+hooks:
+  AfterInstall:
+    - location: afterInstall.sh

@@ -1,0 +1,22 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 8
+    commands:
+    #- echo Entered Install phase...
+    #- apt-get update -y
+    #- apt-get install maven -y
+  build:
+    commands:
+      #- echo Adding Env variable for mysql datasource url
+      #- export MYSQL_HOST=ec2-35-178-199-21.eu-west-2.compute.amazonaws.com
+      #- echo Printing MYSQL_HOST = $MYSQL_HOST
+      - npm install
+      - npm run build
+artifacts:
+  #type: war
+  files:
+    #- node_modules/
+    - appspec.yml
+  discard-paths: yes
