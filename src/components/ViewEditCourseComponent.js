@@ -6,7 +6,7 @@ class ViewEditCourseComponent extends Component {
     super(props);
     //Get the course ID from params.
     const { id } = this.props.match.params;
-    console.log(id);
+
     this.state = {
       course: {
         id: id,
@@ -14,7 +14,7 @@ class ViewEditCourseComponent extends Component {
         idnumber: '',
         description: '',
         price: '',
-        category: 1,
+        category: 0
       },
       categories: [],
       fields: false,
@@ -26,29 +26,27 @@ class ViewEditCourseComponent extends Component {
     this.handleIdNumberChange = this.handleIdNumberChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
 
-    this.loadViewingCourse(id);
+    this.loadViewingCourse(id)
+      .then(response => {
+        console.log('Viewing course ', response.data);
+         this.setState({
+           course: {
+             ...response.data,
+             category: response.data.courseCategory.id
+           }
+         })
+      })
   }
 
   componentDidMount() {
     this.loadCategories();
   }
+  componentWillUnmount(){
+    this._isMounted = false;
+  }
 
   loadViewingCourse(id){
-      CourseService.findCourse(id)
-      .then(response => {
-          console.log('***** Course found with ID ' , id);
-          console.log(response.data);
-          this.setState({
-              course: {
-                id: id,
-                coursename: response.data.coursename,
-                idnumber: response.data.idnumber,
-                description: response.data.description,
-                price: response.data.price,
-                category: response.data.category,
-              }
-          });
-      });
+      return CourseService.findCourse(id);
   }
 
   refreshCourses() {
@@ -132,9 +130,9 @@ class ViewEditCourseComponent extends Component {
           <div className="form-group">
             <select
               className="form-control"
-              id="category"
+              id="categoryid"
               placeholder="Category"
-              name="category"
+              name="categoryid"
               value={this.state.course.category}
               onChange={this.handleCategoryChange}
               se="1"
@@ -203,8 +201,7 @@ class ViewEditCourseComponent extends Component {
     event.preventDefault();
     console.log('*** Form values in this.state.course ***');
     console.log(this.state.course);
-    console.log('*** Checking form values ***');
-    console.log(this.validateFields());
+    console.log('*** Validating fields: ', this.validateFields());
     CourseService.createCourse(this.state.course);
     this.refreshCourses();
     this.props.history.push('/courses');    
@@ -214,7 +211,6 @@ class ViewEditCourseComponent extends Component {
     if (
       this.state.course.coursename &&
       this.state.course.idnumber &&
-      this.state.course.description &&
       this.state.course.price &&
       this.state.course.category
     ) {

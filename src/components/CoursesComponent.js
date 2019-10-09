@@ -54,7 +54,7 @@ class CoursesComponent extends Component {
                   onClick={() =>
                     this.props.history.push('/view-edit-course/' + course.id)
                   }
-                  className="card-img-top"
+                  className="card-img-top pointer-cursor"
                   key={course.id}
                   src={book}
                   alt={course.coursename}
