@@ -9,8 +9,8 @@ class CourseService {
     return axios.get(`${COURSE_API_URL}/all`);
   }
 
-  findCourse(id){
-    return axios.get(`${COURSE_API_URL}/`+id);
+  findCourse(id) {
+    return axios.get(`${COURSE_API_URL}/` + id);
   }
 
   deleteCourse(id) {

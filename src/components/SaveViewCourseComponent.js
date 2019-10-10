@@ -15,13 +15,13 @@ class SaveViewCourseComponent extends Component {
         description: '',
         price: '',
         category: 0,
-        image: ''
+        image: '',
       },
       categories: [],
-      validFields: (id > 0) ? true : false,
+      validFields: id > 0 ? true : false,
       text: 'Create course',
       error: null,
-      disabled: (id > 0) ? false : true
+      disabled: id > 0 ? false : true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -38,11 +38,12 @@ class SaveViewCourseComponent extends Component {
           this.setState({
             course: {
               ...response.data,
-              category: response.data.courseCategory.id
+              category: response.data.courseCategory.id,
             },
-            text: 'Edit course'
-          })
-        }).catch(err => console.log(err));
+            text: 'Edit course',
+          });
+        })
+        .catch(err => console.log(err));
     }
   }
 
@@ -67,23 +68,17 @@ class SaveViewCourseComponent extends Component {
   render() {
     return (
       <div className="container-fluid m-2">
-        <h4>
-          {this.state.text}
-        </h4>
+        <h4>{this.state.text}</h4>
 
         {!this.state.validFields && (
           <div className="alert alert-danger">
-            <p>
-              All fields are required
-            </p>
+            <p>All fields are required</p>
           </div>
         )}
 
         {this.state.error && (
           <div className="alert alert-danger">
-            <p>
-              {this.state.error}
-            </p>
+            <p>{this.state.error}</p>
           </div>
         )}
 
@@ -148,7 +143,11 @@ class SaveViewCourseComponent extends Component {
               ))}
             </select>
           </div>
-          <button type="submit" className="btn btn-primary" disabled={this.state.disabled}>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={this.state.disabled}
+          >
             Save
           </button>
         </form>
@@ -212,29 +211,30 @@ class SaveViewCourseComponent extends Component {
     console.log(this.state.course);
 
     if (this.validateFields()) {
-
-      if (this.state.course.id < 0){
-        this.setState({ course: { 
-          ...this.state.course,
-          id: null 
-        } 
-      });
-      } 
+      if (this.state.course.id < 0) {
+        this.setState({
+          course: {
+            ...this.state.course,
+            id: null,
+          },
+        });
+      }
 
       CourseService.createCourse(this.state.course)
         .then(response => {
           console.log(response);
           this.props.history.push('/courses');
-        }).catch(err => {
-          console.log("Error on save: ", err.message);
+        })
+        .catch(err => {
+          console.log('Error on save: ', err.message);
           this.setState({
-            error: err.message
-          })
+            error: err.message,
+          });
         });
-    }else{
-      this.setState({ 
+    } else {
+      this.setState({
         disabled: true,
-        validFields: false
+        validFields: false,
       });
     }
   }
@@ -252,16 +252,16 @@ class SaveViewCourseComponent extends Component {
   }
 
   toggleButton_requiredFields() {
-    console.log("** this.validateFields(): ", this.validateFields());
-    if (this.validateFields()) { 
-      this.setState({ 
+    console.log('** this.validateFields(): ', this.validateFields());
+    if (this.validateFields()) {
+      this.setState({
         disabled: false,
-        validFields: true
+        validFields: true,
       });
-    }else{
-      this.setState({ 
+    } else {
+      this.setState({
         disabled: true,
-        validFields: false
+        validFields: false,
       });
     }
   }
