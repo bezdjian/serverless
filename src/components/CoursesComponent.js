@@ -21,7 +21,6 @@ class CoursesComponent extends Component {
   refreshCourses() {
     CourseService.findAllCourses()
       .then(response => {
-        console.log(response.data.length + ' Courses found');
         this.setState({
           courses: response.data,
           message: 'Courses are loaded',
@@ -91,7 +90,6 @@ class CoursesComponent extends Component {
   deleteCourseClicked(id) {
     CourseService.deleteCourse(id).then(response => {
       console.log('Course with id', id, 'deleted');
-      console.log(response.data);
       this.setState({ message: `Course with id ${id} deleted` });
       this.refreshCourses();
     });

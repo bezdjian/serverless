@@ -21,7 +21,7 @@ class SaveViewCourseComponent extends Component {
       validFields: (id > 0) ? true : false,
       text: 'Create course',
       error: null,
-      disabled: true
+      disabled: (id > 0) ? false : true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -210,7 +210,6 @@ class SaveViewCourseComponent extends Component {
     event.preventDefault();
     console.log('*** Form values in this.state.course ***');
     console.log(this.state.course);
-    console.log('*** Validating fields: ', this.validateFields());
 
     if (this.validateFields()) {
 
@@ -224,15 +223,13 @@ class SaveViewCourseComponent extends Component {
 
       CourseService.createCourse(this.state.course)
         .then(response => {
-          console.log("Response");
           console.log(response);
           this.props.history.push('/courses');
         }).catch(err => {
-          console.log("Error on save");
+          console.log("Error on save: ", err.message);
           this.setState({
             error: err.message
           })
-          console.log(err);
         });
     }else{
       this.setState({ 
