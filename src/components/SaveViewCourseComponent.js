@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CourseService from '../services/CourseService';
 
-class ViewEditCourseComponent extends Component {
+class SaveViewCourseComponent extends Component {
   constructor(props) {
     super(props);
     //Get the course ID from params.
@@ -14,10 +14,14 @@ class ViewEditCourseComponent extends Component {
         idnumber: '',
         description: '',
         price: '',
-        category: 0
+        category: 0,
+        image: ''
       },
       categories: [],
-      fields: false,
+      validFields: (id > 0) ? true : false,
+      text: 'Create course',
+      error: null,
+      disabled: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -26,43 +30,31 @@ class ViewEditCourseComponent extends Component {
     this.handleIdNumberChange = this.handleIdNumberChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
 
-    this.loadViewingCourse(id)
-      .then(response => {
-        console.log('Viewing course ', response.data);
-         this.setState({
-           course: {
-             ...response.data,
-             category: response.data.courseCategory.id
-           }
-         })
-      })
+    // Call load course to set the values in this.state
+    if (id > 0) {
+      this.loadViewingCourse(id)
+        .then(response => {
+          console.log('Viewing course ', response.data);
+          this.setState({
+            course: {
+              ...response.data,
+              category: response.data.courseCategory.id
+            },
+            text: 'Edit course'
+          })
+        }).catch(err => console.log(err));
+    }
   }
 
   componentDidMount() {
     this.loadCategories();
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     this._isMounted = false;
   }
 
-  loadViewingCourse(id){
-      return CourseService.findCourse(id);
-  }
-
-  refreshCourses() {
-    CourseService.findAllCourses()
-      .then(response => {
-        console.log('*****', response.data.length, ' Courses found');
-        this.setState({
-          courses: response.data,
-          message: 'Courses are loaded',
-          error: null,
-        });
-      })
-      .catch(error => {
-        console.log('findAllCourses: ERROR: ' + error.message);
-        this.setState({ error: error, message: error.message });
-      });
+  loadViewingCourse(id) {
+    return CourseService.findCourse(id);
   }
 
   loadCategories() {
@@ -75,14 +67,26 @@ class ViewEditCourseComponent extends Component {
   render() {
     return (
       <div className="container-fluid m-2">
-        <h4>Create course</h4>
-        <div>
-          {this.state.fields && (
+        <h4>
+          {this.state.text}
+        </h4>
+
+        {!this.state.validFields && (
+          <div className="alert alert-danger">
             <p>
-              <mark className="">All fields are required</mark>
+              All fields are required
             </p>
-          )}
-        </div>
+          </div>
+        )}
+
+        {this.state.error && (
+          <div className="alert alert-danger">
+            <p>
+              {this.state.error}
+            </p>
+          </div>
+        )}
+
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <input
@@ -144,8 +148,8 @@ class ViewEditCourseComponent extends Component {
               ))}
             </select>
           </div>
-          <button type="submit" className="btn btn-primary">
-            Add
+          <button type="submit" className="btn btn-primary" disabled={this.state.disabled}>
+            Save
           </button>
         </form>
       </div>
@@ -159,6 +163,7 @@ class ViewEditCourseComponent extends Component {
         coursename: event.target.value,
       },
     });
+    this.toggleButton_requiredFields();
   }
 
   handleIdNumberChange(event) {
@@ -168,6 +173,7 @@ class ViewEditCourseComponent extends Component {
         idnumber: event.target.value,
       },
     });
+    this.toggleButton_requiredFields();
   }
 
   handlePriceChange(event) {
@@ -177,6 +183,7 @@ class ViewEditCourseComponent extends Component {
         price: event.target.value,
       },
     });
+    this.toggleButton_requiredFields();
   }
 
   handleDescriptionChange(event) {
@@ -186,6 +193,7 @@ class ViewEditCourseComponent extends Component {
         description: event.target.value,
       },
     });
+    this.toggleButton_requiredFields();
   }
 
   handleCategoryChange(event) {
@@ -195,6 +203,7 @@ class ViewEditCourseComponent extends Component {
         category: event.target.value,
       },
     });
+    this.toggleButton_requiredFields();
   }
 
   handleSubmit(event) {
@@ -202,23 +211,63 @@ class ViewEditCourseComponent extends Component {
     console.log('*** Form values in this.state.course ***');
     console.log(this.state.course);
     console.log('*** Validating fields: ', this.validateFields());
-    CourseService.createCourse(this.state.course);
-    this.refreshCourses();
-    this.props.history.push('/courses');    
+
+    if (this.validateFields()) {
+
+      if (this.state.course.id < 0){
+        this.setState({ course: { 
+          ...this.state.course,
+          id: null 
+        } 
+      });
+      } 
+
+      CourseService.createCourse(this.state.course)
+        .then(response => {
+          console.log("Response");
+          console.log(response);
+          this.props.history.push('/courses');
+        }).catch(err => {
+          console.log("Error on save");
+          this.setState({
+            error: err.message
+          })
+          console.log(err);
+        });
+    }else{
+      this.setState({ 
+        disabled: true,
+        validFields: false
+      });
+    }
   }
 
   validateFields() {
     if (
       this.state.course.coursename &&
       this.state.course.idnumber &&
-      this.state.course.price &&
-      this.state.course.category
+      this.state.course.price
     ) {
-      this.setState({ fields: true });
+      this.setState({ validFields: true });
       return true;
     }
     return false;
   }
+
+  toggleButton_requiredFields() {
+    console.log("** this.validateFields(): ", this.validateFields());
+    if (this.validateFields()) { 
+      this.setState({ 
+        disabled: false,
+        validFields: true
+      });
+    }else{
+      this.setState({ 
+        disabled: true,
+        validFields: false
+      });
+    }
+  }
 }
 
-export default ViewEditCourseComponent;
+export default SaveViewCourseComponent;

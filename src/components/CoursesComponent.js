@@ -41,7 +41,7 @@ class CoursesComponent extends Component {
         <div className="container">
           <button
             className="btn btn-primary p-2 mb-2"
-            onClick={() => this.props.history.push('/new-course')}>
+            onClick={() => this.props.history.push('/view-save-course/' + -1)}>
             Add a new course
           </button>
           {this.state.error && (
@@ -52,7 +52,7 @@ class CoursesComponent extends Component {
               <div className="card bg-light" key={course.id}>
                 <img
                   onClick={() =>
-                    this.props.history.push('/view-edit-course/' + course.id)
+                    this.props.history.push('/view-save-course/' + course.id)
                   }
                   className="card-img-top pointer-cursor"
                   key={course.id}
@@ -66,12 +66,19 @@ class CoursesComponent extends Component {
                     Category: {course.courseCategory.name}
                   </p>
                   <p className="card-link">Price: {course.price}:-</p>
-                  <button
-                    className="btn btn-outline-danger"
-                    onClick={() => this.deleteCourseClicked(course.id)}
-                  >
-                    Delete
+                  <div className="btn-group" role="group">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => this.deleteCourseClicked(course.id)}
+                    >
+                      Delete
                   </button>
+                    <button
+                      className="btn btn-info"
+                      onClick={() => this.props.history.push('/view-save-course/' + course.id)}>
+                      Edit
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
