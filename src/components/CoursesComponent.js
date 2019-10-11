@@ -40,7 +40,8 @@ class CoursesComponent extends Component {
         <div className="container">
           <button
             className="btn btn-primary p-2 mb-2"
-            onClick={() => this.props.history.push('/view-save-course/' + -1)}>
+            onClick={() => this.props.history.push('/view-save-course/' + -1)}
+          >
             Add a new course
           </button>
           {this.state.error && (
@@ -71,10 +72,15 @@ class CoursesComponent extends Component {
                       onClick={() => this.deleteCourseClicked(course.id)}
                     >
                       Delete
-                  </button>
+                    </button>
                     <button
                       className="btn btn-info"
-                      onClick={() => this.props.history.push('/view-save-course/' + course.id)}>
+                      onClick={() =>
+                        this.props.history.push(
+                          '/view-save-course/' + course.id,
+                        )
+                      }
+                    >
                       Edit
                     </button>
                   </div>
