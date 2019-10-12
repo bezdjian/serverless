@@ -6,8 +6,7 @@ import '../css/bootstrap.min.css';
 
 import CoursesComponent from './CoursesComponent';
 import HomeComponent from './HomeComponent';
-import NewCourseComponent from './NewCourseComponent';
-import ViewEditCourseComponent from './ViewEditCourseComponent';
+import SaveViewCourseComponent from './SaveViewCourseComponent';
 import Header from './Header';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -20,11 +19,10 @@ class Home extends Component {
           <Switch>
             <Route path="/" exact component={HomeComponent} />
             <Route path="/courses" exact component={CoursesComponent} />
-            <Route path="/new-course" exact component={NewCourseComponent} />
             <Route
-              path="/view-edit-course/:id"
+              path="/view-save-course/:id"
               exact
-              component={ViewEditCourseComponent}
+              component={SaveViewCourseComponent}
             />
           </Switch>
         </div>

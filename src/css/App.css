@@ -23,3 +23,7 @@ code {
 .card{
   min-height: 450px;
 }
+
+.pointer-cursor{
+  cursor: pointer;
+}
