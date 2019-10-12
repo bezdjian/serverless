@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 [ -s "/.nvm/nvm.sh" ] && \. "/.nvm/nvm.sh"
-cd /home/ec2-user/
+cd /var/www/mylms-frontend
 
 npm install -g serve
 serve -s build
