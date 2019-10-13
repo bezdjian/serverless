@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
-import '../css/App.css';
 import '../css/bootstrap.min.css';
-//import '../js/bootstrap.min';
+// import '../js/bootstrap.min';
 
 import CoursesComponent from './CoursesComponent';
 import HomeComponent from './HomeComponent';

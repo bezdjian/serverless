@@ -39,7 +39,7 @@ class CoursesComponent extends Component {
         <h3>All courses</h3>
         <div className="container">
           <button
-            className="btn btn-primary p-2 mb-2"
+            className="btn btn-success p-2 mb-2"
             onClick={() => this.props.history.push('/view-save-course/' + -1)}
           >
             Add a new course
@@ -66,7 +66,7 @@ class CoursesComponent extends Component {
                     Category: {course.courseCategory.name}
                   </p>
                   <p className="card-link">Price: {course.price}:-</p>
-                  <div className="btn-group" role="group">
+                  <div className="btn-group btn-group-actions" role="group">
                     <button
                       className="btn btn-danger"
                       onClick={() => this.deleteCourseClicked(course.id)}
