@@ -6,4 +6,4 @@ files:
     #destination: /home/ec2-user/
 hooks:
   AfterInstall:
-    - location: afterInstall.sh
+    - location: scripts/afterInstall.sh
