@@ -14,7 +14,7 @@ class SaveViewCourseComponent extends Component {
         idnumber: '',
         description: '',
         price: '',
-        category: 0,
+        category: 1,
         image: '',
       },
       categories: [],
@@ -132,12 +132,11 @@ class SaveViewCourseComponent extends Component {
               id="categoryid"
               placeholder="Category"
               name="categoryid"
-              value={this.state.course.category}
+              
               onChange={this.handleCategoryChange}
-              se="1"
             >
               {this.state.categories.map(cat => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat.id} value={cat.id} defaultValue={cat.id}>
                   {cat.name}
                 </option>
               ))}
@@ -211,18 +210,8 @@ class SaveViewCourseComponent extends Component {
     console.log(this.state.course);
 
     if (this.validateFields()) {
-      if (this.state.course.id < 0) {
-        this.setState({
-          course: {
-            ...this.state.course,
-            id: null,
-          },
-        });
-      }
-
       CourseService.createCourse(this.state.course)
-        .then(response => {
-          console.log(response);
+        .then(() => {
           this.props.history.push('/courses');
         })
         .catch(err => {

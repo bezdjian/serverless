@@ -13,7 +13,8 @@ phases:
 artifacts:
   #type: war
   files:
-    - build
     - appspec.yml
     - scripts/afterInstall.sh
-  discard-paths: no
+  base_directory: build
+  files:
+    - '**/*'
