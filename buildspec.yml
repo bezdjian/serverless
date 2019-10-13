@@ -13,10 +13,9 @@ phases:
       - npm run build
       - ls -la
 artifacts:
-  #type: war
+  files:
+    - appspec.yml
+    - scripts/afterInstall.sh
   base_directory: build
   files:
     - '**/*'
-    - appspec.yml
-    - scripts/afterInstall.sh
-  
