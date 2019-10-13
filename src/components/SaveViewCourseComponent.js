@@ -132,7 +132,6 @@ class SaveViewCourseComponent extends Component {
               id="categoryid"
               placeholder="Category"
               name="categoryid"
-              
               onChange={this.handleCategoryChange}
             >
               {this.state.categories.map(cat => (
