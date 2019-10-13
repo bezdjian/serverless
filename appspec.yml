@@ -1,9 +1,0 @@
-version: 0.0
-os: linux
-files:
-  - source: /
-    destination: /var/www/mylms-frontend/
-    #destination: /home/ec2-user/
-hooks:
-  AfterInstall:
-    - location: scripts/afterInstall.sh
