@@ -3,7 +3,7 @@
 cd /home/ec2-user/mylms-frontend
 
 #npm install
-#npm build
+npm build
 npm install -g serve
 serve -s build
 

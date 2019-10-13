@@ -10,12 +10,10 @@ phases:
       - npm install
   build:
     commands:
-      - npm run build
+      #- npm run build
       - ls -la
 artifacts:
   files:
+    - '**/*'
     - appspec.yml
     - scripts/afterInstall.sh
-  base_directory: build
-  files:
-    - '**/*'
