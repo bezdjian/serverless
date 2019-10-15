@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import CourseService from '../services/CourseService';
 
+import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 class SaveViewCourseComponent extends Component {
   constructor(props) {
     super(props);
@@ -72,7 +76,10 @@ class SaveViewCourseComponent extends Component {
 
         {!this.state.validFields && (
           <div className="alert alert-danger">
-            <p>All fields are required</p>
+            <p>
+              <FontAwesomeIcon icon={faExclamationTriangle} /> 
+               All fields are required
+              </p>
           </div>
         )}
 
@@ -143,10 +150,10 @@ class SaveViewCourseComponent extends Component {
           </div>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-success"
             disabled={this.state.disabled}
           >
-            Save
+            <FontAwesomeIcon icon={faSave} /> {/* SAVE */}
           </button>
         </form>
       </div>

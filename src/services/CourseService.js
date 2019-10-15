@@ -1,8 +1,5 @@
 import axios from 'axios';
-// require('dotenv').config();
 
-// http://localhost:8080/
-// const BASE_URL = 'http://localhost:8080';
 const BASE_URL = process.env.REACT_APP_SERVICE_URL;
 const COURSE_API_URL = BASE_URL + '/mylms-service/api/course';
 const CATEGORY_API_URL = BASE_URL + '/mylms-service/api/course/category';

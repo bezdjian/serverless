@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
 import CourseService from '../services/CourseService';
 
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
+import { RingLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+
 import book from '../images/book.jpg';
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
 
 class CoursesComponent extends Component {
   constructor(props) {
@@ -10,6 +25,7 @@ class CoursesComponent extends Component {
       courses: [],
       message: null,
       error: null,
+      loading: true
     };
     this.refreshCourses = this.refreshCourses.bind(this);
   }
@@ -25,27 +41,45 @@ class CoursesComponent extends Component {
           courses: response.data,
           message: 'Courses are loaded',
           error: null,
+          loading: false
         });
       })
       .catch(error => {
         console.log('findAllCourses: ERROR: ' + error.message);
-        this.setState({ error: error, message: error.message });
+        this.setState({
+          error: error,
+          message: error.message,
+          loading: false
+        });
       });
   }
 
   render() {
     return (
-      <div className="container">
-        <h3>All courses</h3>
+      <div className="container-fluid p-2">
         <div className="container">
           <button
             className="btn btn-success p-2 mb-2"
             onClick={() => this.props.history.push('/view-save-course/' + -1)}
           >
-            Add a new course
+            <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
           </button>
+
+          <div className='sweet-loading'>
+            <RingLoader
+              css={override}
+              sizeUnit={"px"}
+              size={150}
+              color={'#123abc'}
+              loading={this.state.loading}
+            />
+          </div>
+
           {this.state.error && (
-            <div className="alert alert-danger">{this.state.message}</div>
+            <div className="alert alert-danger">
+              <FontAwesomeIcon icon={faExclamationTriangle} />
+              {this.state.message}
+            </div>
           )}
           <div className="card-columns" key="cardsKey">
             {this.state.courses.map(course => (
@@ -71,7 +105,7 @@ class CoursesComponent extends Component {
                       className="btn btn-danger"
                       onClick={() => this.deleteCourseClicked(course.id)}
                     >
-                      Delete
+                      <FontAwesomeIcon icon={faTrashAlt} /> {/* DELETE */}
                     </button>
                     <button
                       className="btn btn-info"
@@ -81,7 +115,7 @@ class CoursesComponent extends Component {
                         )
                       }
                     >
-                      Edit
+                      <FontAwesomeIcon icon={faEdit} /> {/* EDIT */}
                     </button>
                   </div>
                 </div>
