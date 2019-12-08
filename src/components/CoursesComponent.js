@@ -13,9 +13,9 @@ import { css } from '@emotion/core';
 import book from '../images/book.jpg';
 
 const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
+  display: block;
+  margin: 0 auto;
+  border-color: red;
 `;
 
 class CoursesComponent extends Component {
@@ -25,7 +25,7 @@ class CoursesComponent extends Component {
       courses: [],
       message: null,
       error: null,
-      loading: true
+      loading: true,
     };
     this.refreshCourses = this.refreshCourses.bind(this);
   }
@@ -41,7 +41,7 @@ class CoursesComponent extends Component {
           courses: response.data,
           message: 'Courses are loaded',
           error: null,
-          loading: false
+          loading: false,
         });
       })
       .catch(error => {
@@ -49,7 +49,7 @@ class CoursesComponent extends Component {
         this.setState({
           error: error,
           message: error.message,
-          loading: false
+          loading: false,
         });
       });
   }
@@ -65,10 +65,10 @@ class CoursesComponent extends Component {
             <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
           </button>
 
-          <div className='sweet-loading'>
+          <div className="sweet-loading">
             <RingLoader
               css={override}
-              sizeUnit={"px"}
+              sizeUnit={'px'}
               size={150}
               color={'#123abc'}
               loading={this.state.loading}

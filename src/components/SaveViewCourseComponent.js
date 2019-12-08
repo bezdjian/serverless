@@ -77,9 +77,9 @@ class SaveViewCourseComponent extends Component {
         {!this.state.validFields && (
           <div className="alert alert-danger">
             <p>
-              <FontAwesomeIcon icon={faExclamationTriangle} /> 
-               All fields are required
-              </p>
+              <FontAwesomeIcon icon={faExclamationTriangle} />
+              All fields are required
+            </p>
           </div>
         )}
 

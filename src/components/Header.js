@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/js/bootstrap';
 
-import {faHome} from '@fortawesome/free-solid-svg-icons';
-import {faBook} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faHome, faListAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Header extends Component {
   render() {
@@ -28,13 +27,18 @@ class Header extends Component {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
               <a className="nav-link" href="/">
-              <FontAwesomeIcon icon={faHome} /> Home <span className="sr-only">(current)</span>
+                <FontAwesomeIcon icon={faHome} /> Home{' '}
+                <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a className="nav-link" href="/courses">
-              <FontAwesomeIcon icon={faBook} /> Courses
+                <FontAwesomeIcon icon={faListAlt} /> All Courses
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/students">
+                <FontAwesomeIcon icon={faUsers} /> Students
               </a>
             </li>
           </ul>
