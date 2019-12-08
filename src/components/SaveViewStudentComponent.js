@@ -98,6 +98,7 @@ class SaveViewStudentComponent extends Component {
                     type="text"
                     className="form-control"
                     id="firstname"
+                    placeholder="Firstname"
                     name="firstname"
                     value={this.state.student.firstname}
                     onChange={this.handleStudentFirstNameChange}

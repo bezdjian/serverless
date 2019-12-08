@@ -37,12 +37,22 @@ class StudentsComponent extends Component {
   refreshStudents() {
     StudentService.findAllStudents()
       .then(response => {
-        this.setState({
-          students: response.data,
-          message: 'Students are loaded',
-          error: null,
-          loading: false,
-        });
+        const { status, data } = response;
+        if(status === 204){ // 204 NO_CONTENT
+          console.log("IN IF");
+          this.setState({
+            message: 'There are no students at this moment',
+            error: 'There are no students at this moment',
+            loading: false,
+          });
+        }else {
+          this.setState({
+            students: data,
+            message: 'Students are loaded',
+            error: null,
+            loading: false,
+          });
+        }
       })
       .catch(error => {
         console.log('findAllStudents: ERROR: ' + error.message);
@@ -82,7 +92,7 @@ class StudentsComponent extends Component {
             </div>
           )}
           <div className="card-columns" key="cardsKey">
-            {this.state.students.map(student => (
+            {this.state.students && this.state.students.map(student => (
               <div className="card bg-light" key={student.id}>
                 <img
                   onClick={() =>
