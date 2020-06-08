@@ -5,7 +5,7 @@ class HomeComponent extends Component {
     return (
       <div className="card">
         <div className="card-header">Hello!</div>
-        <div className="card-body">Welcome to our online school v1.</div>
+        <div className="card-body">Welcome to our online school v1..</div>
         <div className="card-footer">Footer</div>
       </div>
     );
