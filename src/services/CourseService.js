@@ -6,7 +6,7 @@ const COURSE_API_URL = BASE_URL + '/courses';
 class CourseService {
   findAllCourses() {
     console.log(process.env);
-    return axios.get(`${COURSE_API_URL}`);
+    return axios.get(`${COURSE_API_URL}/all`);
   }
 
   findCourse(id) {
