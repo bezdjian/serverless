@@ -2,7 +2,7 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "mylms-backend"
+stack_name = "mylms-backend-fetch-courses"
 s3_bucket = "buckets4lambda"
 s3_prefix = "mylms-courses"
 region = "eu-north-1"
