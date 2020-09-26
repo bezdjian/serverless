@@ -5,7 +5,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {Button, Alert} from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
 class SaveViewCourseComponent extends Component {
   constructor(props) {
@@ -16,21 +16,21 @@ class SaveViewCourseComponent extends Component {
     this.state = {
       course: {
         id: id,
-        coursename: '',
-        idnumber: '',
+        name: '',
+        idNumber: '',
         description: '',
         price: '',
-        category: 1,
-        image: '',
       },
       // TODO: find a way to get current categories.
       categories: [
         {
-          "name": "Cloud"
+          id: '1',
+          name: 'Cloud',
         },
         {
-          "name": "Programming"
-        }
+          id: '2',
+          name: 'Programming',
+        },
       ],
       invalidFields: id === -1 ? false : true,
       text: 'Create course',
@@ -48,16 +48,15 @@ class SaveViewCourseComponent extends Component {
     if (id > 0) {
       CourseService.findCourse(id)
         .then(response => {
-          console.log('Viewing course ', response.data);
+          console.log('Viewing course ', response.data.courses[0]);
           this.setState({
             course: {
-              ...response.data,
-              category: response.data.courseCategory.id,
+              ...response.data.courses[0],
             },
             text: 'Edit course',
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log('Error while fetching course', err));
     }
   }
 
@@ -68,12 +67,14 @@ class SaveViewCourseComponent extends Component {
   render() {
     return (
       <div className="container-fluid m-2">
-        <h4>{this.state.text}</h4>
+        <div className="mb-4">
+          <h4>{this.state.text}</h4>
+        </div>
 
         {!this.state.invalidFields && (
           <Alert dismissible variant="danger">
             <p>
-              <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2"/>
+              <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
               All fields are required
             </p>
           </Alert>
@@ -81,19 +82,29 @@ class SaveViewCourseComponent extends Component {
 
         {this.state.error && (
           <div className="alert alert-danger">
-            <p>{this.state.error}</p>
+            <Alert dismissible variant="danger">
+              <p>
+                <FontAwesomeIcon
+                  icon={faExclamationTriangle}
+                  className="mr-2"
+                />
+                {this.state.error}
+              </p>
+            </Alert>
           </div>
         )}
 
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
+            <label>Course name</label>
             <input
+              key={this.state.course.id}
               type="text"
               className="form-control"
               id="coursename"
               placeholder="Course name"
               name="coursename"
-              value={this.state.course.coursename}
+              value={this.state.course.name}
               onChange={this.handleCourseNameChange}
             />
           </div>
@@ -104,7 +115,7 @@ class SaveViewCourseComponent extends Component {
               id="idnumber"
               placeholder="ID Number"
               name="idnumber"
-              value={this.state.course.idnumber}
+              value={this.state.course.idNumber}
               onChange={this.handleIdNumberChange}
             />
           </div>
@@ -150,6 +161,7 @@ class SaveViewCourseComponent extends Component {
             disabled={this.state.disabled}
           >
             <FontAwesomeIcon icon={faSave} /> {/* SAVE */}
+            Save
           </button>
         </form>
       </div>
