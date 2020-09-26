@@ -21,7 +21,15 @@ class SaveViewCourseComponent extends Component {
         category: 1,
         image: '',
       },
-      categories: [],
+      // TODO: find a way to get current categories.
+      categories: [
+        {
+          "name": "Cloud"
+        },
+        {
+          "name": "Programming"
+        }
+      ],
       validFields: id > 0 ? true : false,
       text: 'Create course',
       error: null,
@@ -51,22 +59,12 @@ class SaveViewCourseComponent extends Component {
     }
   }
 
-  componentDidMount() {
-    this.loadCategories();
-  }
   componentWillUnmount() {
     this._isMounted = false;
   }
 
   loadViewingCourse(id) {
     return CourseService.findCourse(id);
-  }
-
-  loadCategories() {
-    CourseService.loadCategories().then(response => {
-      console.log('Categories loaded..');
-      this.setState({ categories: response.data });
-    });
   }
 
   render() {
