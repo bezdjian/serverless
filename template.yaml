@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM template to create API that triggers a Lambda function to get all courses.
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  FetchCoursesFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: fetch/
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      FunctionName: fetch-courses-function
+      Role: 'arn:aws:iam::397178420157:role/lambda-dynamo-role'
+      # Declare a policy to be able to read/add table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref CoursesDynamoDBTable
+      Environment:
+        Variables:
+          DDB_TABLE: !Ref CoursesDynamoDBTable
+      Events:
+        FetchCoursesFunctionApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /courses
+            Method: get
+  CoursesDynamoDBTable:
+    Type: "AWS::Serverless::SimpleTable"
+    Properties:
+      TableName: CoursesTable
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  FetchCoursesFunctionApiApi:
+    Description: "API Gateway endpoint URL for Dev stage for FetchCoursesFunction"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/courses"
+  FetchCoursesFunction:
+    Description: "Fetch Courses Lambda Function ARN"
+    Value: !GetAtt FetchCoursesFunction.Arn
