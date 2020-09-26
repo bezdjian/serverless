@@ -3,23 +3,18 @@ var origin = "";
 
 exports.lambdaHandler = function (event, context, callback) {
   origin = event.headers.origin;
+  var { proxy } = event.pathParameters;
+  
   //Create Dynamo DB
   var ddb = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
-  var params = {
-    TableName: process.env.DDB_TABLE,
-  };
-
   //Scan the table
-  ddb.scan(params, function (err, data) {
+  ddb.scan(createParams(proxy), function (err, data) {
     if (err) {
       console.log("Error while fetching courses", err);
       callback(Error(err), null);
     } else {
       console.log("Fetched " + data.Items.length + " courses.");
       callback(null, respond(200, data.Items));
-      /*data.Items.forEach(function (element, index, array) {
-        console.log("Element: ", element);
-      });*/
     }
   });
 };
@@ -45,4 +40,33 @@ function getAllowedOrigin() {
   if (allowedOrigins.includes(origin)) return origin;
 
   return "";
+}
+
+function createParams(proxy) {
+  // Digit Regex
+  var reg = new RegExp("^\\d+$");
+
+  if (proxy === "all") {
+    // Return only table name, it scans and returns the whole table.
+    return {
+      TableName: process.env.DDB_TABLE,
+    };
+  } else if (reg.test(proxy)) {
+    return {
+      TableName: process.env.DDB_TABLE,
+      // Columns, name is reserved, that's why made it like a variable.
+      ProjectionExpression: "#id, category, description, #name, price",
+      // The 'Query'
+      FilterExpression: "#id = :id",
+      // Applying the variables to their values.
+      ExpressionAttributeNames: {
+        "#id": "id",
+        "#name": "name",
+      },
+      // Applying the variable in the 'Query' to it value.
+      ExpressionAttributeValues: {
+        ":id": proxy,
+      },
+    };
+  }
 }
