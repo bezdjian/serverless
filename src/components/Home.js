@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import '../css/bootstrap.min.css';
-// import '../js/bootstrap.min';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import CoursesComponent from './CoursesComponent';
 import StudentsComponent from './StudentsComponent';
