@@ -14,13 +14,13 @@ class SaveViewCourseComponent extends Component {
     const { id } = this.props.match.params;
 
     this.state = {
-      course: {
+      course: [{
         id: id,
         name: '',
         idNumber: '',
         description: '',
         price: '',
-      },
+      }],
       // TODO: find a way to get current categories.
       categories: [
         {
@@ -98,7 +98,6 @@ class SaveViewCourseComponent extends Component {
           <div className="form-group">
             <label>Course name</label>
             <input
-              key={this.state.course.id}
               type="text"
               className="form-control"
               id="coursename"
@@ -220,11 +219,9 @@ class SaveViewCourseComponent extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('*** Form values in this.state.course ***');
-    console.log(this.state.course);
 
     if (this.validateFields()) {
-      CourseService.createCourse(this.state.course)
+      CourseService.createCourse(this.state.course[0])
         .then(() => {
           this.props.history.push('/courses');
         })

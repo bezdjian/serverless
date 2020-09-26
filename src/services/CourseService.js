@@ -18,7 +18,8 @@ class CourseService {
   }
 
   createCourse(data) {
-    return axios.post(`${SAVE_COURSE_URL}/courses`, data, {
+    console.log("Saving course: ", data);
+    return axios.post(`${SAVE_COURSE_URL}/save`, data, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
