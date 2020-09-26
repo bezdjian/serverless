@@ -1,24 +1,24 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_SERVICE_URL;
-const COURSE_API_URL = BASE_URL + '/courses';
+const FETCH_COURSES_URL = process.env.REACT_APP_FETCH_COURSES_URL;
+const SAVE_COURSE_URL = process.env.REACT_APP_SAVE_COURSE_URL;
 
 class CourseService {
   findAllCourses() {
     console.log(process.env);
-    return axios.get(`${COURSE_API_URL}/all`);
+    return axios.get(`${FETCH_COURSES_URL}/courses/all`);
   }
 
   findCourse(id) {
-    return axios.get(`${COURSE_API_URL}/` + id);
+    return axios.get(`${FETCH_COURSES_URL}/courses/` + id);
   }
 
   deleteCourse(id) {
-    return axios.delete(`${COURSE_API_URL}/delete/${id}`);
+    return axios.delete(`${URL}/delete/${id}`);
   }
 
   createCourse(data) {
-    return axios.post(`${COURSE_API_URL}/save`, data, {
+    return axios.post(`${SAVE_COURSE_URL}/courses`, data, {
       headers: { 'Content-Type': 'application/json' },
     });
   }
