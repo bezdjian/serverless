@@ -28,7 +28,6 @@ class Header extends Component {
             <li className="nav-item active">
               <a className="nav-link" href="/">
                 <FontAwesomeIcon icon={faHome} /> Home{' '}
-                <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item">
