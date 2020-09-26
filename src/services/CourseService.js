@@ -1,13 +1,12 @@
 import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_SERVICE_URL;
-const COURSE_API_URL = BASE_URL + '/mylms-service/api/course';
-const CATEGORY_API_URL = BASE_URL + '/mylms-service/api/course/category';
+const COURSE_API_URL = BASE_URL + '/courses';
 
 class CourseService {
   findAllCourses() {
     console.log(process.env);
-    return axios.get(`${COURSE_API_URL}/all`);
+    return axios.get(`${COURSE_API_URL}`);
   }
 
   findCourse(id) {
@@ -22,10 +21,6 @@ class CourseService {
     return axios.post(`${COURSE_API_URL}/save`, data, {
       headers: { 'Content-Type': 'application/json' },
     });
-  }
-
-  loadCategories() {
-    return axios.get(`${CATEGORY_API_URL}/all`);
   }
 }
 

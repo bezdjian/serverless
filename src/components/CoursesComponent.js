@@ -37,8 +37,9 @@ class CoursesComponent extends Component {
   refreshCourses() {
     CourseService.findAllCourses()
       .then(response => {
+        console.log("COURSES: ", response.data.courses)
         this.setState({
-          courses: response.data,
+          courses: response.data.courses,
           message: 'Courses are loaded',
           error: null,
           loading: false,
@@ -97,7 +98,7 @@ class CoursesComponent extends Component {
                   <h4 className="card-title">{course.coursename}</h4>
                   <p className="card-text">{course.description}</p>
                   <p className="card-text">
-                    Category: {course.courseCategory.name}
+                    Category: {course.category.name}
                   </p>
                   <p className="card-link">Price: {course.price}:-</p>
                   <div className="btn-group btn-group-actions" role="group">
