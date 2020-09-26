@@ -12,6 +12,9 @@ import { css } from '@emotion/core';
 
 import book from '../images/book.jpg';
 
+import { Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
+
 const override = css`
   display: block;
   margin: 0 auto;
@@ -37,7 +40,6 @@ class CoursesComponent extends Component {
   refreshCourses() {
     CourseService.findAllCourses()
       .then(response => {
-        console.log("COURSES: ", response.data.courses)
         this.setState({
           courses: response.data.courses,
           message: 'Courses are loaded',
@@ -46,7 +48,7 @@ class CoursesComponent extends Component {
         });
       })
       .catch(error => {
-        console.log('findAllCourses: ERROR: ' + error.message);
+        console.log('Error accured: ' + error.message);
         this.setState({
           error: error,
           message: error.message,
@@ -59,13 +61,6 @@ class CoursesComponent extends Component {
     return (
       <div className="container-fluid p-2">
         <div className="container">
-          <button
-            className="btn btn-success p-2 mb-2"
-            onClick={() => this.props.history.push('/view-save-course/' + -1)}
-          >
-            <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
-          </button>
-
           <div className="sweet-loading">
             <RingLoader
               css={override}
@@ -76,53 +71,72 @@ class CoursesComponent extends Component {
             />
           </div>
 
-          {this.state.error && (
-            <div className="alert alert-danger">
-              <FontAwesomeIcon icon={faExclamationTriangle} />
-              {this.state.message}
-            </div>
-          )}
-          <div className="card-columns" key="cardsKey">
-            {this.state.courses.map(course => (
-              <div className="card bg-light" key={course.id}>
-                <img
-                  onClick={() =>
-                    this.props.history.push('/view-save-course/' + course.id)
-                  }
-                  className="card-img-top pointer-cursor"
-                  key={course.id}
-                  src={book}
-                  alt={course.coursename}
+          {this.state.error ? (
+            <Alert dismissible variant="danger">
+              <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+              <p>
+                <FontAwesomeIcon
+                  icon={faExclamationTriangle}
+                  className="mr-2"
                 />
-                <div className="card-body">
-                  <h4 className="card-title">{course.coursename}</h4>
-                  <p className="card-text">{course.description}</p>
-                  <p className="card-text">
-                    Category: {course.category.name}
-                  </p>
-                  <p className="card-link">Price: {course.price}:-</p>
-                  <div className="btn-group btn-group-actions" role="group">
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => this.deleteCourseClicked(course.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} /> {/* DELETE */}
-                    </button>
-                    <button
-                      className="btn btn-info"
+                {this.state.message}
+              </p>
+            </Alert>
+          ) : (
+            <div>
+              <Button
+                className="btn btn-success p-2 mb-2"
+                onClick={() =>
+                  this.props.history.push('/view-save-course/' + -1)
+                }
+              >
+                <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
+                Add a new course
+              </Button>
+
+              <div className="card-columns" key="cardsKey">
+                {this.state.courses.map(course => (
+                  <div className="card bg-light" key={course.id}>
+                    <img
                       onClick={() =>
                         this.props.history.push(
                           '/view-save-course/' + course.id,
                         )
                       }
-                    >
-                      <FontAwesomeIcon icon={faEdit} /> {/* EDIT */}
-                    </button>
+                      className="card-img-top pointer-cursor rounded"
+                      key={course.id}
+                      src={book}
+                      alt={course.coursename}
+                    />
+                    <div className="card-body">
+                      <h4 className="card-title center">{course.coursename}</h4>
+                      <p className="card-text">{course.description}</p>
+                      <p className="card-text">Category: {course.category}</p>
+                      <p className="card-link">Price: {course.price}:-</p>
+                      <div className="btn-group btn-group-actions" role="group">
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => this.deleteCourseClicked(course.id)}
+                        >
+                          <FontAwesomeIcon icon={faTrashAlt} /> {/* DELETE */}
+                        </button>
+                        <button
+                          className="btn btn-info"
+                          onClick={() =>
+                            this.props.history.push(
+                              '/view-save-course/' + course.id,
+                            )
+                          }
+                        >
+                          <FontAwesomeIcon icon={faEdit} /> {/* EDIT */}
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     );

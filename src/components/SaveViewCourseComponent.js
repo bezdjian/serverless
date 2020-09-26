@@ -5,6 +5,8 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import {Button, Alert} from 'react-bootstrap';
+
 class SaveViewCourseComponent extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,7 @@ class SaveViewCourseComponent extends Component {
           "name": "Programming"
         }
       ],
-      validFields: id > 0 ? true : false,
+      invalidFields: id === -1 ? false : true,
       text: 'Create course',
       error: null,
       disabled: id > 0 ? false : true,
@@ -72,13 +74,13 @@ class SaveViewCourseComponent extends Component {
       <div className="container-fluid m-2">
         <h4>{this.state.text}</h4>
 
-        {!this.state.validFields && (
-          <div className="alert alert-danger">
+        {!this.state.invalidFields && (
+          <Alert dismissible variant="danger">
             <p>
-              <FontAwesomeIcon icon={faExclamationTriangle} />
+              <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2"/>
               All fields are required
             </p>
-          </div>
+          </Alert>
         )}
 
         {this.state.error && (
