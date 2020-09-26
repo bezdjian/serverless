@@ -46,7 +46,7 @@ class SaveViewCourseComponent extends Component {
 
     // Call load course to set the values in this.state
     if (id > 0) {
-      this.loadViewingCourse(id)
+      CourseService.findCourse(id)
         .then(response => {
           console.log('Viewing course ', response.data);
           this.setState({
@@ -63,10 +63,6 @@ class SaveViewCourseComponent extends Component {
 
   componentWillUnmount() {
     this._isMounted = false;
-  }
-
-  loadViewingCourse(id) {
-    return CourseService.findCourse(id);
   }
 
   render() {
