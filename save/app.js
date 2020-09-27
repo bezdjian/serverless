@@ -2,13 +2,8 @@ var AWS = require("aws-sdk");
 var origin = "";
 
 exports.lambdaHandler = function (event, context, callback) {
-  //console.log("Event: ", event);
   origin = event.headers.Origin;
-  var course = event.body;
-
-  //var course = JSON.parse(body);
-  console.log("Recieved course to save: ", course);
-
+  course = JSON.parse(event.body);
   // Create DynamoDB object
   var ddb = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
   // Call DynamoDB
@@ -50,6 +45,7 @@ function getAllowedOrigin() {
 }
 
 function createDdbParams(course) {
+  console.log("Putting course: ", course);
   return {
     TableName: process.env.DDB_TABLE,
     Item: {
