@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM template to create API that triggers a Lambda function to save a course.
+  
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  SaveCourseFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: save/
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      FunctionName: save-course-function
+      Role: 'arn:aws:iam::397178420157:role/lambda-dynamo-role'
+      # Declare a policy to be able to read/save table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: CoursesTable
+      Environment:
+        Variables:
+          DDB_TABLE: CoursesTable
+      Events:
+        SaveCourseApi:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /save
+            Method: post
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  SaveCourseApiApi:
+    Description: "API Gateway endpoint URL for Prod stage for SaveCourseFunction"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/save"
+  SaveCourseFunction:
+    Description: "Save Course Lambda Function ARN"
+    Value: !GetAtt SaveCourseFunction.Arn
