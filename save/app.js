@@ -20,12 +20,10 @@ exports.lambdaHandler = function (event, context, callback) {
 };
 
 function respond(status, course) {
-  const o = getAllowedOrigin();
-  console.log("Got origin: ", o);
   return {
     statusCode: status,
     headers: {
-      "Access-Control-Allow-Origin": o,
+      "Access-Control-Allow-Origin": getAllowedOrigin(),
       "Access-Control-Allow-Methods": 'OPTIONS, POST',
       "Content-Type": "application/json"
     },
