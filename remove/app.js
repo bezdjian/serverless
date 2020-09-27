@@ -2,7 +2,10 @@ var AWS = require("aws-sdk");
 var origin = "";
 
 exports.lambdaHandler = function (event, context, callback) {
-  origin = event.headers.Origin;
+  console.log("Event: ", event);
+  // Origin is sometimes small letter ?!?!
+  origin = event.headers.Origin ? event.headers.Origin : event.headers.origin;
+
   var { courseId } = event.pathParameters;
 
   //Create Dynamo DB
