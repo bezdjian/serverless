@@ -55,6 +55,7 @@ function createDdbParams(course) {
       id: course.id,
       name: course.name,
       description: course.description,
+      idNumber: course.idNumber,
       category: course.category,
       price: course.price,
     },
