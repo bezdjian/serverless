@@ -2,6 +2,7 @@ var AWS = require("aws-sdk");
 var origin = "";
 
 exports.lambdaHandler = function (event, context, callback) {
+  // THIS will NOT work with sam local invoke -e event.json, only start-api.
   origin = event.headers.Origin;
   var course = JSON.parse(event.body);
   // Create DynamoDB object
@@ -25,6 +26,7 @@ function respond(status, course) {
     statusCode: status,
     headers: {
       "Access-Control-Allow-Origin": o,
+      "Access-Control-Allow-Methods": 'OPTIONS, POST',
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
@@ -45,7 +47,7 @@ function getAllowedOrigin() {
 }
 
 function createDdbParams(course) {
-  console.log("Putting course: ", course);
+  console.log("Saving course: ", course);
   return {
     TableName: process.env.DDB_TABLE,
     Item: {
