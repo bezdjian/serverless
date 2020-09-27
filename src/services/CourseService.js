@@ -20,7 +20,6 @@ class CourseService {
   }
 
   saveCourse(course) {
-    // Edit is working on course object. add is not!
     console.log('Saving course: ', course);
     if (course.id == -1) course.id = uuid();
     console.log('Saving course JSON: ', JSON.stringify(course));

@@ -18,7 +18,7 @@ code {
 }
 
 .card {
-  min-height: 450px;
+  min-height: 420px;
 }
 
 .pointer-cursor {
@@ -28,7 +28,6 @@ code {
 .btn-group-actions {
   position: absolute;
   bottom: 10px;
-  left: 10px;
 }
 
 .info-color{
