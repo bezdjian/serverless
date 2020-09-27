@@ -122,13 +122,13 @@ class Courses extends Component {
                       className="card-img-top pointer-cursor rounded"
                       key={course.id}
                       src={book}
-                      alt={course.coursename}
+                      alt={course.name}
                     />
                     <div className="card-body">
-                      <h4 className="card-title center">{course.coursename}</h4>
+                      <h4 className="card-title center">{course.name}</h4>
                       <p className="card-text">{course.description}</p>
                       <p className="card-text">Category: {course.category}</p>
-                      <p className="card-link">Price: {course.price}:-</p>
+                      <p className="card-link">Price: {course.price} :-</p>
                       <div className="btn-group btn-group-actions" role="group">
                         <button
                           className="btn btn-danger"
