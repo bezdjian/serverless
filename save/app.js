@@ -3,7 +3,9 @@ var origin = "";
 
 exports.lambdaHandler = function (event, context, callback) {
   // THIS will NOT work with sam local invoke -e event.json, only start-api.
-  origin = event.headers.Origin;
+  // Origin is sometimes small letter ?!?!
+  origin = event.headers.Origin ? event.headers.Origin : event.headers.origin;
+
   var course = JSON.parse(event.body);
   // Create DynamoDB object
   var ddb = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
@@ -23,9 +25,9 @@ function respond(status, course) {
   return {
     statusCode: status,
     headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Allow-Origin": getAllowedOrigin(),
-      "Access-Control-Allow-Methods": 'OPTIONS, POST',
-      "Content-Type": "application/json"
+      "Access-Control-Allow-Methods": "OPTIONS,POST",
     },
     body: JSON.stringify({
       course: course,
@@ -37,6 +39,7 @@ function getAllowedOrigin() {
   // Setting the local React and S3 hosted app as allowed origins.
   const allowedOrigins = [
     "http://localhost:3000",
+    "http://localhost:3001",
     "http://mylms-frontend.s3-website.eu-west-2.amazonaws.com",
   ];
   if (allowedOrigins.includes(origin)) return origin;

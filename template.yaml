@@ -6,6 +6,11 @@ Description: SAM template to create API that triggers a Lambda function to save 
 Globals:
   Function:
     Timeout: 3
+  Api:
+    Cors:
+      AllowMethods: "'POST'"
+      AllowOrigin: "'*'"
+      AllowHeaders: "'Content-Type'"
 
 Resources:
   SaveCourseFunction:
