@@ -17,7 +17,6 @@ class CourseService {
 
   deleteCourse(id) {
     return axios.delete(`${REMOVE_COURSE_URL}/remove/${id}`);
-    //return axios.delete(`http://127.0.0.1:3000/remove/${id}`);
   }
 
   saveCourse(course) {
@@ -26,8 +25,7 @@ class CourseService {
     if (course.id == -1) course.id = uuid();
     console.log('Saving course JSON: ', JSON.stringify(course));
     
-    //return axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
-    return axios.post(`http://127.0.0.1:3000/save`, JSON.stringify(course), {
+    return axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
       headers: {
         'Content-Type': 'application/json',
       },
