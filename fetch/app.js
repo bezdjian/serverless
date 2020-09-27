@@ -35,6 +35,7 @@ function getAllowedOrigin() {
   // Setting the local React and S3 hosted app as allowed origins.
   const allowedOrigins = [
     "http://localhost:3000",
+    "http://localhost:3001",
     "http://mylms-frontend.s3-website.eu-west-2.amazonaws.com",
   ];
   if (allowedOrigins.includes(origin)) return origin;
