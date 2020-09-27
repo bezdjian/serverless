@@ -3,7 +3,7 @@ var origin = "";
 
 exports.lambdaHandler = function (event, context, callback) {
   origin = event.headers.Origin;
-  course = JSON.parse(event.body);
+  var course = JSON.parse(event.body);
   // Create DynamoDB object
   var ddb = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
   // Call DynamoDB
