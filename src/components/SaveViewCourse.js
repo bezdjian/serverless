@@ -14,15 +14,13 @@ class SaveViewCourse extends Component {
     const { id } = this.props.match.params;
 
     this.state = {
-      course: [
-        {
-          id: id,
-          name: '',
-          idNumber: '',
-          description: '',
-          price: '',
-        },
-      ],
+      course: {
+        id: id,
+        name: '',
+        idNumber: '',
+        description: '',
+        price: '',
+      },
       // TODO: find a way to get current categories.
       categories: [
         {
@@ -109,7 +107,7 @@ class SaveViewCourse extends Component {
               placeholder="Course name"
               name="name"
               value={this.state.course.name}
-              onChange={() => this.handleCourseNameChange}
+              onChange={this.handleCourseNameChange}
             />
           </div>
           <div className="form-group">
