@@ -21,7 +21,7 @@ class CourseService {
 
   saveCourse(course) {
     console.log('Saving course: ', course);
-    if (course.id == -1) course.id = uuid();
+    if (course.id == -1) course.id = uuid().replace(/-/g, '');
     console.log('Saving course JSON: ', JSON.stringify(course));
     
     return axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
