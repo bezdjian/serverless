@@ -18,7 +18,7 @@ const override = css`
   border-color: red;
 `;
 
-class StudentsComponent extends Component {
+class Students extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -150,4 +150,4 @@ class StudentsComponent extends Component {
   }
 }
 
-export default StudentsComponent;
+export default Students;

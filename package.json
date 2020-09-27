@@ -24,7 +24,7 @@
     "uuid": "^8.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3001 react-scripts start",
     "start:dev": "npm start --watch",
     "build": "react-scripts build",
     "deploy": "react-scripts build && aws s3 sync build/ s3://mylms-frontend",

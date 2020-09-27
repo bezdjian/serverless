@@ -7,35 +7,37 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Alert } from 'react-bootstrap';
 
-class SaveViewCourseComponent extends Component {
+class SaveViewCourse extends Component {
   constructor(props) {
     super(props);
     //Get the course ID from params.
     const { id } = this.props.match.params;
 
     this.state = {
-      course: [{
-        id: id,
-        name: '',
-        idNumber: '',
-        description: '',
-        price: '',
-      }],
+      course: [
+        {
+          id: id,
+          name: '',
+          idNumber: '',
+          description: '',
+          price: '',
+        },
+      ],
       // TODO: find a way to get current categories.
       categories: [
         {
-          id: '1',
+          id: 'Cloud',
           name: 'Cloud',
         },
         {
-          id: '2',
+          id: 'Programming',
           name: 'Programming',
         },
       ],
-      invalidFields: id === -1 ? false : true,
+      invalidFields: false,
       text: 'Create course',
       error: null,
-      disabled: id > 0 ? false : true,
+      disabled: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -58,6 +60,8 @@ class SaveViewCourseComponent extends Component {
         })
         .catch(err => console.log('Error while fetching course', err));
     }
+
+    console.log('Course in state: ', this.state.course);
   }
 
   componentWillUnmount() {
@@ -71,8 +75,9 @@ class SaveViewCourseComponent extends Component {
           <h4>{this.state.text}</h4>
         </div>
 
-        {!this.state.invalidFields && (
+        {this.state.invalidFields && (
           <Alert dismissible variant="danger">
+            <Alert.Heading>Oops!</Alert.Heading>
             <p>
               <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
               All fields are required
@@ -100,11 +105,11 @@ class SaveViewCourseComponent extends Component {
             <input
               type="text"
               className="form-control"
-              id="coursename"
+              id="name"
               placeholder="Course name"
-              name="coursename"
+              name="name"
               value={this.state.course.name}
-              onChange={this.handleCourseNameChange}
+              onChange={() => this.handleCourseNameChange}
             />
           </div>
           <div className="form-group">
@@ -171,20 +176,20 @@ class SaveViewCourseComponent extends Component {
     this.setState({
       course: {
         ...this.state.course,
-        coursename: event.target.value,
+        name: event.target.value,
       },
     });
-    this.toggleButton_requiredFields();
+    this.toggleRequiredFields();
   }
 
   handleIdNumberChange(event) {
     this.setState({
       course: {
         ...this.state.course,
-        idnumber: event.target.value,
+        idNumber: event.target.value,
       },
     });
-    this.toggleButton_requiredFields();
+    this.toggleRequiredFields();
   }
 
   handlePriceChange(event) {
@@ -194,7 +199,7 @@ class SaveViewCourseComponent extends Component {
         price: event.target.value,
       },
     });
-    this.toggleButton_requiredFields();
+    this.toggleRequiredFields();
   }
 
   handleDescriptionChange(event) {
@@ -204,7 +209,7 @@ class SaveViewCourseComponent extends Component {
         description: event.target.value,
       },
     });
-    this.toggleButton_requiredFields();
+    this.toggleRequiredFields();
   }
 
   handleCategoryChange(event) {
@@ -214,14 +219,14 @@ class SaveViewCourseComponent extends Component {
         category: event.target.value,
       },
     });
-    this.toggleButton_requiredFields();
+    this.toggleRequiredFields();
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
-    if (this.validateFields()) {
-      CourseService.createCourse(this.state.course[0])
+    if (this.isValidFields()) {
+      CourseService.saveCourse(this.state.course)
         .then(() => {
           this.props.history.push('/courses');
         })
@@ -234,37 +239,32 @@ class SaveViewCourseComponent extends Component {
     } else {
       this.setState({
         disabled: true,
-        validFields: false,
+        invalidFields: true,
       });
     }
   }
 
-  validateFields() {
-    if (
-      this.state.course.coursename &&
-      this.state.course.idnumber &&
-      this.state.course.price
-    ) {
-      this.setState({ validFields: true });
-      return true;
-    }
-    return false;
+  isValidFields() {
+    return (
+      this.state.course.name !== '' &&
+      this.state.course.idNumber !== '' &&
+      this.state.course.price !== ''
+    );
   }
 
-  toggleButton_requiredFields() {
-    console.log('** this.validateFields(): ', this.validateFields());
-    if (this.validateFields()) {
+  toggleRequiredFields() {
+    if (this.isValidFields()) {
       this.setState({
         disabled: false,
-        validFields: true,
+        invalidFields: false,
       });
     } else {
       this.setState({
         disabled: true,
-        validFields: false,
+        invalidFields: true,
       });
     }
   }
 }
 
-export default SaveViewCourseComponent;
+export default SaveViewCourse;

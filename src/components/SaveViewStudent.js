@@ -5,7 +5,7 @@ import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class SaveViewStudentComponent extends Component {
+class SaveViewStudent extends Component {
   constructor(props) {
     super(props);
     //Get the Student ID from params.
@@ -284,4 +284,4 @@ class SaveViewStudentComponent extends Component {
   }
 }
 
-export default SaveViewStudentComponent;
+export default SaveViewStudent;

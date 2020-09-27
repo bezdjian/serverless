@@ -21,7 +21,7 @@ const override = css`
   border-color: red;
 `;
 
-class CoursesComponent extends Component {
+class Courses extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,21 +57,38 @@ class CoursesComponent extends Component {
       });
   }
 
+  deleteCourseClicked(id) {
+    CourseService.deleteCourse(id)
+      .then(response => {
+        console.log('Course with id', id, 'deleted');
+        this.setState({ message: `Course with id ${id} deleted` });
+        this.refreshCourses();
+      })
+      .catch(error => {
+        console.log('Error while removing a course: ', error.message);
+        this.setState({
+          error: error,
+          message: error.message,
+          loading: false,
+        });
+      });
+  }
+
   render() {
     return (
       <div className="container-fluid p-2">
         <div className="container">
-          <div className="sweet-loading">
-            <RingLoader
-              css={override}
-              sizeUnit={'px'}
-              size={150}
-              color={'#123abc'}
-              loading={this.state.loading}
-            />
-          </div>
-
-          {this.state.error ? (
+          {this.state.loading ? (
+            <div className="sweet-loading">
+              <RingLoader
+                css={override}
+                sizeUnit={'px'}
+                size={150}
+                color={'#123abc'}
+                loading={this.state.loading}
+              />
+            </div>
+          ) : this.state.error ? (
             <Alert dismissible variant="danger">
               <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
               <p>
@@ -93,7 +110,6 @@ class CoursesComponent extends Component {
                 <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
                 Add a new course
               </Button>
-
               <div className="card-columns" key="cardsKey">
                 {this.state.courses.map(course => (
                   <div className="card bg-light" key={course.id}>
@@ -141,14 +157,6 @@ class CoursesComponent extends Component {
       </div>
     );
   }
-
-  deleteCourseClicked(id) {
-    CourseService.deleteCourse(id).then(response => {
-      console.log('Course with id', id, 'deleted');
-      this.setState({ message: `Course with id ${id} deleted` });
-      this.refreshCourses();
-    });
-  }
 }
 
-export default CoursesComponent;
+export default Courses;
