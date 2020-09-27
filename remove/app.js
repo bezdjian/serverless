@@ -41,7 +41,7 @@ function getAllowedOrigin() {
   const allowedOrigins = [
     "http://localhost:3000",
     "http://localhost:3001",
-    "http://mylms-frontend.s3-website.eu-west-2.amazonaws.com",
+    "http://mylms-frontend-app.s3-website.eu-north-1.amazonaws.com",
   ];
   if (allowedOrigins.includes(origin)) return origin;
 
