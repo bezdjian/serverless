@@ -7,16 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { RingLoader } from 'react-spinners';
-import { css } from '@emotion/core';
-
 import user from '../images/user.png';
-
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
 
 class Students extends Component {
   constructor(props) {
@@ -75,16 +66,6 @@ class Students extends Component {
             <FontAwesomeIcon icon={faPlus} /> {/* Add a new student */}
           </button>
 
-          <div className="sweet-loading">
-            <RingLoader
-              css={override}
-              sizeUnit={'px'}
-              size={150}
-              color={'#123abc'}
-              loading={this.state.loading}
-            />
-          </div>
-
           {this.state.error && (
             <div className="alert alert-danger">
               <FontAwesomeIcon icon={faExclamationTriangle} />
@@ -142,6 +123,7 @@ class Students extends Component {
   }
 
   deleteStudentClicked(id) {
+    // Add trackPromise
     StudentService.deleteStudent(id).then(response => {
       console.log('Student with id', id, 'deleted');
       this.setState({ message: `Student with id ${id} deleted` });

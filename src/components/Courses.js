@@ -7,19 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { RingLoader } from 'react-spinners';
-import { css } from '@emotion/core';
-
 import book from '../images/book.jpg';
 
 import { Button } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
+import { trackPromise } from 'react-promise-tracker';
 
 class Courses extends Component {
   constructor(props) {
@@ -28,7 +21,6 @@ class Courses extends Component {
       courses: [],
       message: null,
       error: null,
-      loading: true,
     };
     this.refreshCourses = this.refreshCourses.bind(this);
   }
@@ -38,57 +30,48 @@ class Courses extends Component {
   }
 
   refreshCourses() {
-    CourseService.findAllCourses()
-      .then(response => {
-        this.setState({
-          courses: response.data.courses,
-          message: 'Courses are loaded',
-          error: null,
-          loading: false,
-        });
-      })
-      .catch(error => {
-        console.log('Error accured: ' + error.message);
-        this.setState({
-          error: error,
-          message: error.message,
-          loading: false,
-        });
-      });
+    trackPromise(
+      CourseService.findAllCourses()
+        .then(response => {
+          this.setState({
+            courses: response.data.courses,
+            message: 'Courses are loaded',
+            error: null,
+          });
+        })
+        .catch(error => {
+          console.log('Error accured: ' + error.message);
+          this.setState({
+            error: error,
+            message: error.message,
+          });
+        }),
+    );
   }
 
   deleteCourseClicked(id) {
-    CourseService.deleteCourse(id)
-      .then(response => {
-        console.log('Course with id', id, 'deleted');
-        this.setState({ message: `Course with id ${id} deleted` });
-        this.refreshCourses();
-      })
-      .catch(error => {
-        console.log('Error while removing a course: ', error.message);
-        this.setState({
-          error: error,
-          message: error.message,
-          loading: false,
-        });
-      });
+    trackPromise(
+      CourseService.deleteCourse(id)
+        .then(response => {
+          console.log('Course with id', id, 'deleted');
+          this.setState({ message: `Course with id ${id} deleted` });
+          this.refreshCourses();
+        })
+        .catch(error => {
+          console.log('Error while removing a course: ', error.message);
+          this.setState({
+            error: error,
+            message: error.message,
+          });
+        }),
+    );
   }
 
   render() {
     return (
       <div className="container-fluid p-2">
         <div className="container">
-          {this.state.loading ? (
-            <div className="sweet-loading">
-              <RingLoader
-                css={override}
-                sizeUnit={'px'}
-                size={150}
-                color={'#123abc'}
-                loading={this.state.loading}
-              />
-            </div>
-          ) : this.state.error ? (
+          {this.state.error ? (
             <Alert dismissible variant="danger">
               <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
               <p>

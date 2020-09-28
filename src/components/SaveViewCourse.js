@@ -7,12 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Alert } from 'react-bootstrap';
 
+import { trackPromise } from 'react-promise-tracker';
+
 class SaveViewCourse extends Component {
   constructor(props) {
     super(props);
     //Get the course ID from params.
     const { id } = this.props.match.params;
-    console.log("GOT ID: ", id)
+    console.log('GOT ID: ', id);
 
     this.state = {
       course: {
@@ -47,17 +49,19 @@ class SaveViewCourse extends Component {
 
     // Call load course to set the values in this.state
     if (id !== -1) {
-      CourseService.findCourse(id)
-        .then(response => {
-          console.log('Viewing course ', response.data.courses[0]);
-          this.setState({
-            course: {
-              ...response.data.courses[0],
-            },
-            text: 'Edit course',
-          });
-        })
-        .catch(err => console.log('Error while fetching course', err));
+      trackPromise(
+        CourseService.findCourse(id)
+          .then(response => {
+            console.log('Viewing course ', response.data.courses[0]);
+            this.setState({
+              course: {
+                ...response.data.courses[0],
+              },
+              text: 'Edit course',
+            });
+          })
+          .catch(err => console.log('Error while fetching course', err)),
+      );
     }
 
     console.log('Course in state: ', this.state.course);
@@ -225,16 +229,18 @@ class SaveViewCourse extends Component {
     event.preventDefault();
 
     if (this.isValidFields()) {
-      CourseService.saveCourse(this.state.course)
-        .then(() => {
-          this.props.history.push('/courses');
-        })
-        .catch(err => {
-          console.log('Error on save: ', err.message);
-          this.setState({
-            error: err.message,
-          });
-        });
+      trackPromise(
+        CourseService.saveCourse(this.state.course)
+          .then(() => {
+            this.props.history.push('/courses');
+          })
+          .catch(err => {
+            console.log('Error on save: ', err.message);
+            this.setState({
+              error: err.message,
+            });
+          }),
+      );
     } else {
       this.setState({
         disabled: true,
