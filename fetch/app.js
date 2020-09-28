@@ -46,15 +46,16 @@ function getAllowedOrigin() {
 function createParams(proxy) {
   // Digit Regex
   var reg = new RegExp("^\\d+$");
+  const tableName = process.env.DDB_TABLE;
 
   if (proxy === "all") {
     // Return only table name, it scans and returns the whole table.
     return {
-      TableName: process.env.DDB_TABLE,
+      TableName: tableName,
     };
-  } else if (reg.test(proxy)) {
+  } else {
     return {
-      TableName: process.env.DDB_TABLE,
+      TableName: tableName,
       // Columns, name is reserved, that's why made it like a variable.
       ProjectionExpression: "#id, category, description, #name, price",
       // The 'Query'
