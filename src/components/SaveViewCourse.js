@@ -12,6 +12,7 @@ class SaveViewCourse extends Component {
     super(props);
     //Get the course ID from params.
     const { id } = this.props.match.params;
+    console.log("GOT ID: ", id)
 
     this.state = {
       course: {
@@ -45,7 +46,7 @@ class SaveViewCourse extends Component {
     this.handlePriceChange = this.handlePriceChange.bind(this);
 
     // Call load course to set the values in this.state
-    if (id > 0) {
+    if (id !== -1) {
       CourseService.findCourse(id)
         .then(response => {
           console.log('Viewing course ', response.data.courses[0]);
