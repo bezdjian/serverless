@@ -5,6 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import book from '../images/book.jpg';
@@ -84,15 +85,26 @@ class Courses extends Component {
             </Alert>
           ) : (
             <div>
-              <Button
-                className="btn btn-success p-2 mb-2"
-                onClick={() =>
-                  this.props.history.push('/view-save-course/' + -1)
-                }
-              >
-                <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
-                Add a new course
-              </Button>
+              <div className="btn-group">
+                <Button
+                  className="btn btn-primary p-2 mb-2 rounded-0"
+                  onClick={() =>
+                    this.props.history.push('/')
+                  }
+                >
+                  <FontAwesomeIcon icon={faHome} className="mr-1"/>
+                  Home
+                </Button>
+                <Button
+                  className="btn btn-success p-2 mb-2 rounded-0"
+                  onClick={() =>
+                    this.props.history.push('/view-save-course/' + -1)
+                  }
+                >
+                  <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
+                  Add a new course
+                </Button>
+              </div>
               <div className="card-columns" key="cardsKey">
                 {this.state.courses.map(course => (
                   <div className="card bg-light" key={course.id}>
