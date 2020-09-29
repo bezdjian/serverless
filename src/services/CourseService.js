@@ -19,9 +19,8 @@ class CourseService {
   }
 
   saveCourse(course) {
+    // When creating a new course, ID is null, so we assign an UUID. 
     if (!course.id) course.id = uuid().replace(/-/g, '');
-    console.log('Saving course JSON: ', JSON.stringify(course));
-
     return axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
       headers: {
         'Content-Type': 'application/json',
