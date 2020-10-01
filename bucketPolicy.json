@@ -10,7 +10,7 @@
                 "s3:GetObject"
             ],
             "Resource": [
-                "arn:aws:s3:::mylms-frontend/*"
+                "arn:aws:s3:::mylms-frontend-app/*"
             ]
         }
     ]
