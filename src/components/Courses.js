@@ -88,11 +88,9 @@ class Courses extends Component {
               <div className="btn-group">
                 <Button
                   className="btn btn-primary p-2 mb-2 rounded-0"
-                  onClick={() =>
-                    this.props.history.push('/')
-                  }
+                  onClick={() => this.props.history.push('/')}
                 >
-                  <FontAwesomeIcon icon={faHome} className="mr-1"/>
+                  <FontAwesomeIcon icon={faHome} className="mr-1" />
                   Home
                 </Button>
                 <Button
@@ -103,6 +101,14 @@ class Courses extends Component {
                 >
                   <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
                   Add a new course
+                </Button>
+
+                <Button
+                  className="btn btn-success p-2 mb-2 rounded-0"
+                  onClick={() => CourseService.testApi()}
+                >
+                  <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
+                  Test API
                 </Button>
               </div>
               <div className="card-columns" key="cardsKey">

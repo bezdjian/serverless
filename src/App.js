@@ -11,6 +11,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import {withAuthenticator} from "@aws-amplify/ui-react";
+
 class App extends Component {
   render() {
     return (
@@ -39,4 +41,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuthenticator(App);

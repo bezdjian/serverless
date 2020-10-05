@@ -4,7 +4,22 @@ import 'bootstrap/dist/js/bootstrap';
 import { faHome, faListAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { getUserName, signOut } from '../services/UserService';
+
 class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: '',
+    };
+
+    getUserName().then(username => {
+      this.setState({
+        username: username,
+      });
+    });
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -52,7 +67,7 @@ class Header extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Profile
+                {this.state.username}
               </a>
               <div
                 className="dropdown-menu dropdown-menu-right"
@@ -65,8 +80,12 @@ class Header extends Component {
                   Another action
                 </a>
                 <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="/">
-                  Something else here
+                <a
+                  className="dropdown-item"
+                  href="/"
+                  onClick={() => signOut()}
+                >
+                  Sign out
                 </a>
               </div>
             </li>
