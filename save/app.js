@@ -58,6 +58,10 @@ function createDdbParams(course) {
       idNumber: course.idNumber,
       category: course.category,
       price: course.price,
+      image: course.image,
+      imageName: course.imageName,
+      imageUrl: course.imageUrl,
+      imageSize: course.imageSize,
     },
   };
 }

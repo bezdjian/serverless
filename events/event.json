@@ -4,7 +4,11 @@
     "name": "test name",
     "description": "description test",
     "category": "Test",
-    "price": 101
+    "price": 101,
+    "image": "course.image",
+    "imageName": "course.imageName",
+    "imageUrl": "course.imageUrl",
+    "imageSize": "course.imageSize"
   },
   "resource": "/{proxy+}",
   "path": "/path/to/resource",
