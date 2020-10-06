@@ -14,13 +14,14 @@ class SaveViewCourse extends Component {
     super(props);
     //Get the course ID from params.
     const { id } = this.props.match.params;
-    console.log('GOT ID: ', id);
+    console.log('Course ID: ', id);
 
     this.state = {
       course: {
         id: id,
         name: '',
         idNumber: '',
+        image: '',
         description: '',
         price: '',
       },
@@ -35,6 +36,7 @@ class SaveViewCourse extends Component {
           name: 'Programming',
         },
       ],
+      imageFile: '',
       invalidFields: false,
       text: 'Create course',
       error: null,
@@ -46,6 +48,7 @@ class SaveViewCourse extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleIdNumberChange = this.handleIdNumberChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
 
     // Call load course to set the values in this.state
     if (id !== -1) {
@@ -56,7 +59,9 @@ class SaveViewCourse extends Component {
             this.setState({
               course: {
                 ...response.data.courses[0],
+                image: response.data.courses[0].imageUrl,
               },
+              imageFile: response.data.courses[0],
               text: 'Edit course',
             });
           })
@@ -138,6 +143,15 @@ class SaveViewCourse extends Component {
             />
           </div>
           <div className="form-group">
+            <input
+              alt="Course image"
+              type="file"
+              placeholder="Course image"
+              onChange={this.handleImageChange}
+            />
+            <img alt="" src={this.state.course.image} />
+          </div>
+          <div className="form-group">
             <textarea
               className="form-control"
               id="description"
@@ -205,6 +219,17 @@ class SaveViewCourse extends Component {
     this.toggleRequiredFields();
   }
 
+  handleImageChange(event) {
+    var file = event.target.files[0];
+    this.setState({
+      course: {
+        ...this.state.course,
+        image: URL.createObjectURL(file),
+      },
+      imageFile: file
+    });
+  }
+
   handleDescriptionChange(event) {
     this.setState({
       course: {
@@ -230,7 +255,7 @@ class SaveViewCourse extends Component {
 
     if (this.isValidFields()) {
       trackPromise(
-        CourseService.saveCourse(this.state.course)
+        CourseService.saveCourse(this.state.course, this.state.imageFile)
           .then(() => {
             this.props.history.push('/courses');
           })
