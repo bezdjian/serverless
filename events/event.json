@@ -11,7 +11,7 @@
     "foo": ["bar"]
   },
   "pathParameters": {
-    "proxy": "8bbd734f83f54ae9a17c7372aecdfbbe"
+    "proxy": "1c6bdbf8e8e94d1aae9f70a6ceb5b4b6"
   },
   "stageVariables": {
     "baz": "qux"
