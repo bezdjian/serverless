@@ -1,0 +1,1 @@
+# Upload course image function
