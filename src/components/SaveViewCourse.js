@@ -68,7 +68,6 @@ class SaveViewCourse extends Component {
           .catch(err => console.log('Error while fetching course', err)),
       );
     }
-
     console.log('Course in state: ', this.state.course);
   }
 
@@ -226,7 +225,7 @@ class SaveViewCourse extends Component {
         ...this.state.course,
         image: URL.createObjectURL(file),
       },
-      imageFile: file
+      imageFile: file,
     });
   }
 

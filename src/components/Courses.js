@@ -7,9 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-
-import book from '../images/book.jpg';
-
 import { Button } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 
@@ -34,6 +31,7 @@ class Courses extends Component {
     trackPromise(
       CourseService.findAllCourses()
         .then(response => {
+          console.log('Courses: ', response.data.courses);
           this.setState({
             courses: response.data.courses,
             message: 'Courses are loaded',
@@ -88,11 +86,9 @@ class Courses extends Component {
               <div className="btn-group">
                 <Button
                   className="btn btn-primary p-2 mb-2 rounded-0"
-                  onClick={() =>
-                    this.props.history.push('/')
-                  }
+                  onClick={() => this.props.history.push('/')}
                 >
-                  <FontAwesomeIcon icon={faHome} className="mr-1"/>
+                  <FontAwesomeIcon icon={faHome} className="mr-1" />
                   Home
                 </Button>
                 <Button
@@ -116,7 +112,7 @@ class Courses extends Component {
                       }
                       className="card-img-top pointer-cursor rounded"
                       key={course.id}
-                      src={book}
+                      src={course.imageUrl}
                       alt={course.name}
                     />
                     <div className="card-body">
