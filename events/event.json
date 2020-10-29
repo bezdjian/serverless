@@ -42,7 +42,6 @@
     "X-Forwarded-Proto": [ "https" ]
   },
   "queryStringParameters": { "fileName": "blabla.png" },
-  "multiValueQueryStringParameters": { "fileName:" [ "blabla.png" ] },
   "pathParameters": null,
   "stageVariables": null,
   "requestContext": {
