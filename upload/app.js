@@ -5,31 +5,29 @@ exports.lambdaHandler = function (event, context, callback) {
   console.log("EVENT: ", event);
   // Origin is sometimes small letter ?!?!
   origin = event.headers.Origin ? event.headers.Origin : event.headers.origin;
-  
+
   //let encodedImage = JSON.parse(event.body);
   let decodedImage = event.isBase64Encoded
     ? Buffer.from(event.body, "base64")
     : event.body;
 
-  var filePath = "course_images/" + event.queryStringParameters.filename + ".jpg";
+  var filePath = "course_images/" + event.queryStringParameters.filename;
   console.log("File path: ", filePath);
-  
+
   var params = {
     Bucket: process.env.BUCKET_NAME,
     Body: decodedImage,
     Key: filePath,
   };
 
-  console.log("Creating S3");
-  s3 = new AWS.S3({ apiVersion: "2006-03-01" });
-  console.log("Calling s3.upload");
-  s3.putObject(params, function (err, data) {
+  var s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+  s3.upload(params, function (err, data) {
     if (err) {
       console.log("Error", err);
       callback(Error(err), null);
     }
     if (data) {
-      console.log("Upload Success", data.Location);
+      console.log("Upload Success", data);
       callback(null, respond(200, data.Location));
     }
   });
