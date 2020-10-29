@@ -57,7 +57,7 @@ function createParams(proxy) {
     return {
       TableName: tableName,
       // Selecting Columns, name is reserved, that's why made it like a variable.
-      ProjectionExpression: "#id, category, description, #name, price, image, imageName, imageUrl",
+      ProjectionExpression: "#id, category, description, #name, price, idNumber, imageName, imageUrl",
       // The 'Query'
       FilterExpression: "#id = :id",
       // Applying the column names as variables to their values.
