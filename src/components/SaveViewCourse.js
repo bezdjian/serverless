@@ -123,9 +123,9 @@ class SaveViewCourse extends Component {
             <input
               type="text"
               className="form-control"
-              id="idnumber"
+              id="idNumber"
               placeholder="ID Number"
-              name="idnumber"
+              name="idNumber"
               value={this.state.course.idNumber}
               onChange={this.handleIdNumberChange}
             />
