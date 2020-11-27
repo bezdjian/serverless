@@ -15,3 +15,6 @@ export const signOut = function() {
     .then(res => console.log('Signout: ', res))
     .catch(err => console.log('Signout error: ', err));
 };
+
+
+// harout:hbezhbez
