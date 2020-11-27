@@ -27,7 +27,7 @@
         "IdentityPoolName": "mylmsfrontend0a43e0e0_identitypool_0a43e0e0__dev",
         "UserPoolName": "mylmsfrontend0a43e0e0_userpool_0a43e0e0"
       },
-      "lastPushTimeStamp": "2020-11-27T15:34:24.639Z",
+      "lastPushTimeStamp": "2020-11-27T15:56:11.282Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-mylmsfrontend-dev-133012-deployment/amplify-cfn-templates/auth/mylmsfrontend0a43e0e0-cloudformation-template.yml",
         "logicalId": "authmylmsfrontend0a43e0e0"
