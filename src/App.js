@@ -25,7 +25,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/courses" exact component={CoursesShowcase} />
+            <Route path="/courses" exact component={Courses} />
             <Route path="/students" exact component={Students} />
             <Route
               path="/view-save-course/:id"

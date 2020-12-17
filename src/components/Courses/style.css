@@ -1,3 +1,8 @@
+p {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+  
+
 .showcase .showcase-img {
     min-height: 30rem;
     background-size: cover;

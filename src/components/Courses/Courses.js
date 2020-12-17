@@ -13,12 +13,17 @@ class Courses extends Component {
       courses: [],
       message: null,
       error: null,
+      divAlignment: '',
     };
     this.refreshCourses = this.refreshCourses.bind(this);
   }
 
   componentDidMount() {
     this.refreshCourses();
+  }
+
+  isOdd(num) {
+    return num % 2;
   }
 
   refreshCourses() {
@@ -62,70 +67,107 @@ class Courses extends Component {
 
   render() {
     return (
-      <div className="container-fluid p-2">
-        <div className="container">
+      <div className="container-fluid p-0">
+        <div>
           {this.state.error ? (
             <Alert dismissible variant="danger">
               <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
               <p>
-              <i className="fas fa-exclamation-triangle"></i>
+                <i className="fas fa-exclamation-triangle"></i>
                 {this.state.message}
               </p>
             </Alert>
           ) : (
             <div>
-              <div className="btn-group">
+              {/* <div className="btn-group">
                 <Button
                   className="btn btn-success p-2 mb-2 rounded-0"
                   onClick={() =>
                     this.props.history.push('/view-save-course/' + -1)
                   }
                 >
-                  <i className="fas fa-plus"></i> {/* Add a new course */}
+                  <i className="fas fa-plus"></i>
                   Add a new course
                 </Button>
-              </div>
-              <div className="card-columns" key="cardsKey">
-                {//src={course.imageUrl}
-                this.state.courses.map(course => (
-                  <div className="row no-gutters">
-                    <div
-                      key={course.id}
-                      className="col-lg-6 order-lg-2 text-white showcase-img"
-                      
-                    ></div>
-                    <div className="col-lg-6 order-lg-1 my-auto showcase-text">
-                      <h2>{course.name}</h2>
-                      <p className="lead mb-0">
-                        <p className="card-text">{course.description}</p>
-                        <p className="card-text">Category: {course.category}</p>
-                        <p className="card-link">Price: {course.price} :-</p>
-                        <div
-                          className="btn-group btn-group-actions"
-                          role="group"
-                        >
-                          <button
-                            className="btn btn-danger"
-                            onClick={() => this.deleteCourseClicked(course.id)}
-                          >
-                            <i className="fas fa-trash"></i> {/* DELETE */}
-                          </button>
-                          <button
-                            className="btn btn-info"
-                            onClick={() =>
-                              this.props.history.push(
-                                '/view-save-course/' + course.id,
-                              )
-                            }
-                          >
-                            <i className="fas fa-edit"></i>  {/* EDIT */}
-                          </button>
+              </div> **/}
+              <section className="showcase">
+                <div className="container-fluid p-0">
+                  {//src={course.imageUrl}
+                  this.state.courses.map((course, i) => {
+                    if (this.isOdd(i)) {
+                      return (
+                        <div className="row no-gutters">
+                          <div className="col-lg-6 order-lg-2 text-white showcase-img si1"></div>
+                          <div className="col-lg-6 order-lg-1 my-auto showcase-text">
+                            <h2>{course.name}</h2>
+                            <p className="lead mb-0">{course.description}</p>
+                            <p className="lead mb-0">{course.category}</p>
+                            <br/>
+                            <p className="lead mb-0">Price: {course.price} :-</p>
+
+                            <div className="col-lg-6 btn-group btn-group-actions" role="group">
+                              <Button className="btn btn-danger"
+                                onClick={() =>
+                                  this.deleteCourseClicked(course.id)
+                                }
+                              >
+                                <i className="fas fa-trash fa-2x"></i>
+                              </Button>
+                              <Button
+                                className="btn btn-info"
+                                onClick={() =>
+                                  this.props.history.push(
+                                    '/view-save-course/' + course.id,
+                                  )
+                                }
+                              >
+                                <i className="fas fa-edit fa-2x"></i>
+                              </Button>
+                            </div>
+                          </div>
                         </div>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                      );
+                    } else {
+                      return (
+                        <div className="row no-gutters">
+                          <div className="col-lg-6 text-white showcase-img si1"></div>
+                          <div className="col-lg-6 my-auto showcase-text">
+                            <h2>{course.name}</h2>
+                            <p className="lead mb-0">{course.description}</p>
+                            <p className="lead mb-0">{course.category}</p>
+                            <br/>
+                            <p className="lead mb-0">Price: {course.price} :-</p>
+
+                            <div
+                              className="col-lg-6 btn-group btn-group-actions"
+                              role="group"
+                            >
+                              <button
+                                className="btn btn-danger"
+                                onClick={() =>
+                                  this.deleteCourseClicked(course.id)
+                                }
+                              >
+                                <i className="fas fa-trash fa-2x"></i> {/* DELETE */}
+                              </button>
+                              <button
+                                className="btn btn-info"
+                                onClick={() =>
+                                  this.props.history.push(
+                                    '/view-save-course/' + course.id,
+                                  )
+                                }
+                              >
+                                <i className="fas fa-edit fa-2x"></i> {/* EDIT */}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+              </section>
             </div>
           )}
         </div>

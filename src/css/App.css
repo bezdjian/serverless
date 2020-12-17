@@ -5,10 +5,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
 .App-logo {
   height: 40vmin;
 }
@@ -17,17 +13,8 @@ code {
   width: 100%;
 }
 
-.card {
-  min-height: 420px;
-}
-
 .pointer-cursor {
   cursor: pointer;
-}
-
-.btn-group-actions {
-  position: absolute;
-  bottom: 10px;
 }
 
 .info-color{
