@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-import user from '../images/user.png';
+import user from '../img/user.png';
 
 class Students extends Component {
   constructor(props) {

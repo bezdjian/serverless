@@ -77,17 +77,3 @@ code {
   background-color: transparent !important;
   border: 2px solid #33b5e5 !important;
 }
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  background-color: red;
-  color: white;
-  text-align: center;
-}
-
-.font-white {
-  color: #ffffff;
-}

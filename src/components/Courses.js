@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import CourseService from '../services/CourseService';
 
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 
@@ -74,10 +68,7 @@ class Courses extends Component {
             <Alert dismissible variant="danger">
               <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
               <p>
-                <FontAwesomeIcon
-                  icon={faExclamationTriangle}
-                  className="mr-2"
-                />
+              <i class="fas fa-exclamation-triangle"></i>
                 {this.state.message}
               </p>
             </Alert>
@@ -85,59 +76,52 @@ class Courses extends Component {
             <div>
               <div className="btn-group">
                 <Button
-                  className="btn btn-primary p-2 mb-2 rounded-0"
-                  onClick={() => this.props.history.push('/')}
-                >
-                  <FontAwesomeIcon icon={faHome} className="mr-1" />
-                  Home
-                </Button>
-                <Button
                   className="btn btn-success p-2 mb-2 rounded-0"
                   onClick={() =>
                     this.props.history.push('/view-save-course/' + -1)
                   }
                 >
-                  <FontAwesomeIcon icon={faPlus} /> {/* Add a new course */}
+                  <i class="fas fa-plus"></i> {/* Add a new course */}
                   Add a new course
                 </Button>
               </div>
               <div className="card-columns" key="cardsKey">
-                {this.state.courses.map(course => (
-                  <div className="card bg-light" key={course.id}>
-                    <img
-                      onClick={() =>
-                        this.props.history.push(
-                          '/view-save-course/' + course.id,
-                        )
-                      }
-                      className="card-img-top pointer-cursor rounded"
+                {//src={course.imageUrl}
+                this.state.courses.map(course => (
+                  <div class="row no-gutters">
+                    <div
                       key={course.id}
-                      src={course.imageUrl}
-                      alt={course.name}
-                    />
-                    <div className="card-body">
-                      <h4 className="card-title center">{course.name}</h4>
-                      <p className="card-text">{course.description}</p>
-                      <p className="card-text">Category: {course.category}</p>
-                      <p className="card-link">Price: {course.price} :-</p>
-                      <div className="btn-group btn-group-actions" role="group">
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => this.deleteCourseClicked(course.id)}
+                      className="col-lg-6 order-lg-2 text-white showcase-img"
+                      
+                    ></div>
+                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                      <h2>{course.name}</h2>
+                      <p class="lead mb-0">
+                        <p className="card-text">{course.description}</p>
+                        <p className="card-text">Category: {course.category}</p>
+                        <p className="card-link">Price: {course.price} :-</p>
+                        <div
+                          className="btn-group btn-group-actions"
+                          role="group"
                         >
-                          <FontAwesomeIcon icon={faTrashAlt} /> {/* DELETE */}
-                        </button>
-                        <button
-                          className="btn btn-info"
-                          onClick={() =>
-                            this.props.history.push(
-                              '/view-save-course/' + course.id,
-                            )
-                          }
-                        >
-                          <FontAwesomeIcon icon={faEdit} /> {/* EDIT */}
-                        </button>
-                      </div>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => this.deleteCourseClicked(course.id)}
+                          >
+                            <i class="fas fa-trash"></i> {/* DELETE */}
+                          </button>
+                          <button
+                            className="btn btn-info"
+                            onClick={() =>
+                              this.props.history.push(
+                                '/view-save-course/' + course.id,
+                              )
+                            }
+                          >
+                            <i class="fas fa-edit"></i>  {/* EDIT */}
+                          </button>
+                        </div>
+                      </p>
                     </div>
                   </div>
                 ))}
