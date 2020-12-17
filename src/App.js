@@ -6,7 +6,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'mdbreact/dist/css/mdb.css';
 //import $ from 'jquery';
 
-import Courses from './components/Courses';
+import Courses from './components/Courses/Courses';
+import CoursesShowcase from './components/Courses/CoursesShowcase';
 import Students from './components/Students';
 import Home from './components/Home';
 import SaveViewCourse from './components/SaveViewCourse';
@@ -24,7 +25,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/courses" exact component={Courses} />
+            <Route path="/courses" exact component={CoursesShowcase} />
             <Route path="/students" exact component={Students} />
             <Route
               path="/view-save-course/:id"
