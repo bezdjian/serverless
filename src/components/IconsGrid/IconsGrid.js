@@ -12,7 +12,7 @@ export class IconsGrid extends Component {
                 <div className="features-icons-icon d-flex">
                   <i className="fa fa-desktop m-auto text-primary"></i>
                 </div>
-                <h3>Most wanted courses</h3>
+                <h3>Modern courses</h3>
                 <p className="lead mb-0">
                   From AWS, to Java
                 </p>
