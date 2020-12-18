@@ -28,6 +28,10 @@ h2, p, label, input, select, option, textarea {
     background-image: url('img/aws.png');
 }
 
+.spring-img {
+    background-image: url('img/spring1.png');
+}
+
 .showcase .showcase-text {
     padding: 3rem
 }

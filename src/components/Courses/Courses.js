@@ -92,7 +92,7 @@ class Courses extends Component {
                       orderLg1 = 'order-lg-1';
                     }
                     // TODO: Remove this after fixing the course image.
-                    var imageClass = course.idNumber.includes('aws') ? 'aws-img' : 'si2'
+                    var imageClass = course.idNumber.includes('aws') ? 'aws-img' : course.idNumber.includes('spring') ? 'spring-img' : 'si2'
                     
                     return (
                       <div className="row no-gutters" key={'crow' + i}>
