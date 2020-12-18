@@ -70,8 +70,8 @@ class SaveViewStudent extends Component {
         {!this.state.validFields && (
           <div className="alert alert-danger">
             <p>
-            <i class="fas fa-exclamation-triangle"></i>
-            All fields are required
+              <i class="fas fa-exclamation-triangle"></i>
+              All fields are required
             </p>
           </div>
         )}
@@ -167,10 +167,10 @@ class SaveViewStudent extends Component {
 
             <button
               type="submit"
-              className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+              className="btn btn-outline-info"
               disabled={this.state.disabled}
             >
-              <i class="fas fa-save"></i>
+              <i className="fas fa-save mr-2 fa-2x"></i>
               <label className="code-font">Save</label>
             </button>
           </form>

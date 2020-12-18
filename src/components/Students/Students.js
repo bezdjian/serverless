@@ -58,6 +58,7 @@ class Students extends Component {
             onClick={() => this.props.history.push('/view-save-student/' + -1)}
           >
             <i class="far fa-plus"></i>
+            Add new Student
           </button>
 
           {this.state.error && (

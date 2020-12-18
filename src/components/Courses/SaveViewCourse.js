@@ -173,7 +173,7 @@ class SaveViewCourse extends Component {
           </div>
           <button
             type="submit"
-            className="btn btn-success"
+            className="btn btn-outline-info"
             disabled={this.state.disabled}
           >
             <i className="fas fa-save mr-2 fa-2x"></i>
