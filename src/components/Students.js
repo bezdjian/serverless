@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import StudentService from '../services/StudentService';
 
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-
 import user from '../img/user.png';
 
 class Students extends Component {
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
     this.state = {
       students: [],
       message: null,
@@ -63,12 +57,12 @@ class Students extends Component {
             className="btn btn-success p-2 mb-2"
             onClick={() => this.props.history.push('/view-save-student/' + -1)}
           >
-            <FontAwesomeIcon icon={faPlus} /> {/* Add a new student */}
+            <i class="far fa-plus"></i>
           </button>
 
           {this.state.error && (
             <div className="alert alert-danger">
-              <FontAwesomeIcon icon={faExclamationTriangle} />
+              <i class="far fa-triangle"></i>
               {this.state.message}
             </div>
           )}
@@ -100,7 +94,7 @@ class Students extends Component {
                       className="btn btn-danger"
                       onClick={() => this.deleteStudentClicked(student.id)}
                     >
-                      <FontAwesomeIcon icon={faTrashAlt} /> {/* DELETE */}
+                      <i class="far fa-trash-undo-alt"></i>
                     </button>
                     <button
                       className="btn btn-info"
@@ -110,7 +104,7 @@ class Students extends Component {
                         )
                       }
                     >
-                      <FontAwesomeIcon icon={faEdit} /> {/* EDIT */}
+                      <i class="far fa-edit"></i>
                     </button>
                   </div>
                 </div>

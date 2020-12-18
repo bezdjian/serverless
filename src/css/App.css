@@ -5,6 +5,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.code-font {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
 .App-logo {
   height: 40vmin;
 }
@@ -17,12 +21,12 @@ body {
   cursor: pointer;
 }
 
-.info-color{
+.info-color {
   background-color: #33b5e5;
   color: #ffffff;
 }
 
-.md-form input, 
+.md-form input,
 .md-form textarea.md-textarea {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -36,10 +40,10 @@ body {
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  -webkit-transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 .md-form label {
@@ -63,4 +67,10 @@ body {
   color: #33b5e5 !important;
   background-color: transparent !important;
   border: 2px solid #33b5e5 !important;
+}
+
+button[type="submit"] {
+  width: 150px;
+  height: 50px;
+  padding: 10px;
 }

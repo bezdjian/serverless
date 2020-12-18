@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import StudentService from '../services/StudentService';
 
-import { faSave } from '@fortawesome/free-solid-svg-icons';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 class SaveViewStudent extends Component {
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
     //Get the Student ID from params.
     const { id } = this.props.match.params;
 
@@ -74,8 +70,8 @@ class SaveViewStudent extends Component {
         {!this.state.validFields && (
           <div className="alert alert-danger">
             <p>
-              <FontAwesomeIcon icon={faExclamationTriangle} />
-              All fields are required
+            <i class="fas fa-exclamation-triangle"></i>
+            All fields are required
             </p>
           </div>
         )}
@@ -174,7 +170,8 @@ class SaveViewStudent extends Component {
               className="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
               disabled={this.state.disabled}
             >
-              Save <FontAwesomeIcon icon={faSave} />
+              <i class="fas fa-save"></i>
+              <label className="code-font">Save</label>
             </button>
           </form>
         </div>

@@ -9,11 +9,12 @@ import 'mdbreact/dist/css/mdb.css';
 import Courses from './components/Courses/Courses';
 import Students from './components/Students';
 import Home from './components/Home';
-import SaveViewCourse from './components/SaveViewCourse';
+import SaveViewCourse from './components/Courses/SaveViewCourse';
 import SaveViewStudent from './components/SaveViewStudent';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import Test from './components/NotFound/NotFound';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -36,6 +37,7 @@ class App extends Component {
               exact
               component={SaveViewStudent}
             />
+            <Route component={Test} />
           </Switch>
         </div>
         <Footer />

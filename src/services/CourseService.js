@@ -7,19 +7,19 @@ const REMOVE_COURSE_URL = process.env.REACT_APP_REMOVE_COURSE_URL;
 const UPLOAD_COURSE_IMAGE_URL = process.env.REACT_APP_UPLOAD_COURSE_IMAGE_URL;
 
 class CourseService {
-  findAllCourses() {
-    return axios.get(`${FETCH_COURSES_URL}/courses/all`);
+  async findAllCourses() {
+    return await axios.get(`${FETCH_COURSES_URL}/courses/all`);
   }
 
-  findCourse(id) {
-    return axios.get(`${FETCH_COURSES_URL}/courses/` + id);
+  async findCourse(id) {
+    return await axios.get(`${FETCH_COURSES_URL}/courses/` + id);
   }
 
-  deleteCourse(id) {
-    return axios.delete(`${REMOVE_COURSE_URL}/remove/${id}`);
+  async deleteCourse(id) {
+    return await axios.delete(`${REMOVE_COURSE_URL}/remove/${id}`);
   }
 
-  saveCourse(course, file) {
+  async saveCourse(course, file) {
     // Uploading image runs after response? make async? none async?
     if (file) {
       console.log('Uploading image: ', file);
@@ -36,7 +36,7 @@ class CourseService {
     return this.save(course);
   }
 
-  uploadCourseImage = async file => {
+  async uploadCourseImage(file) {
     const response = await axios.post(
       `${UPLOAD_COURSE_IMAGE_URL}/upload?filename=${file.name}`,
       file,
@@ -50,9 +50,9 @@ class CourseService {
     return response.data.message;
   };
 
-  save(course) {
+  async save(course) {
     console.log('Saving course: ', course);
-    return axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
+    return await axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
       headers: {
         'Content-Type': 'application/json',
       },

@@ -1,7 +1,11 @@
-p, h3 {
+h2, p, label, input, select, option, textarea {   
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-  }
-  
+}
+
+.btn-group-actions {
+    position: absolute;
+    bottom: 0;
+}
 
 .showcase .showcase-img {
     min-height: 30rem;
@@ -18,6 +22,10 @@ p, h3 {
 
 .si3 {
     background-image: url('img/bg-showcase-3.jpg');
+}
+
+.aws-img {
+    background-image: url('img/aws.png');
 }
 
 .showcase .showcase-text {

@@ -15,16 +15,19 @@ header.masthead h1{
 }
 
 .navbar-brand{
-    color: #000000;
-}
-
-.nav-item a{
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
     color: #000000;
     font-weight: bold;
 }
 
-.nav-item a:hover{
+.nav-item a{
+    padding: 20px;
     color: #000000;
+    font-weight: bold;
+}
+.nav-item a:hover{
+    background-color: #007bff;
+    color: #ffffff;
 }
 
 .navbar-toggler .nav-item{
@@ -33,6 +36,10 @@ header.masthead h1{
 
 .navbar-toggler-icon {
     height: 1em;
+}
+/* To make it not possible */
+.navbar .dropdown-menu a:not(.active){
+    color: none;
 }
 
 @media (min-width:768px){

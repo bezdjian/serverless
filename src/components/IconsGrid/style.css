@@ -1,3 +1,10 @@
+p,
+h3,
+h5,
+h6 {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
 .features-icons .features-icons-item .features-icons-icon i{
     font-size:3.5rem
 }

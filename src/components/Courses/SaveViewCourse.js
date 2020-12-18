@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import CourseService from '../services/CourseService';
-
-import { faSave } from '@fortawesome/free-solid-svg-icons';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Select from 'react-select';
+import './style.css';
+import CourseService from '../../services/CourseService';
 
 import { Alert } from 'react-bootstrap';
 
 import { trackPromise } from 'react-promise-tracker';
 
 class SaveViewCourse extends Component {
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
     //Get the course ID from params.
     const { id } = this.props.match.params;
     console.log('Course ID: ', id);
@@ -24,17 +22,12 @@ class SaveViewCourse extends Component {
         image: '',
         description: '',
         price: '',
+        category: '',
       },
       // TODO: find a way to get current categories.
       categories: [
-        {
-          id: 'Cloud',
-          name: 'Cloud',
-        },
-        {
-          id: 'Programming',
-          name: 'Programming',
-        },
+        { value: 'Cloud', label: 'Cloud' },
+        { value: 'Development', label: 'Development' },
       ],
       imageFile: '',
       invalidFields: false,
@@ -45,6 +38,7 @@ class SaveViewCourse extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleCategoryChange1 = this.handleCategoryChange1.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleIdNumberChange = this.handleIdNumberChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
@@ -77,16 +71,16 @@ class SaveViewCourse extends Component {
 
   render() {
     return (
-      <div className="container-fluid m-2">
+      <div className="container pt-5 pb-5">
         <div className="mb-4">
-          <h4>{this.state.text}</h4>
+          <h2>{this.state.text}</h2>
         </div>
 
         {this.state.invalidFields && (
           <Alert dismissible variant="danger">
-            <Alert.Heading>Oops!</Alert.Heading>
+            {/*<Alert.Heading>Oops!</Alert.Heading>*/}
             <p>
-              <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
+              <i className="fas fa-exclamation-triangle mr-2"></i>
               All fields are required
             </p>
           </Alert>
@@ -96,10 +90,7 @@ class SaveViewCourse extends Component {
           <div className="alert alert-danger">
             <Alert dismissible variant="danger">
               <p>
-                <FontAwesomeIcon
-                  icon={faExclamationTriangle}
-                  className="mr-2"
-                />
+                <i class="fas fa-exclamation-triangle mr-2"></i>
                 {this.state.error}
               </p>
             </Alert>
@@ -108,7 +99,6 @@ class SaveViewCourse extends Component {
 
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
-            <label>Course name</label>
             <input
               type="text"
               className="form-control"
@@ -162,26 +152,32 @@ class SaveViewCourse extends Component {
           </div>
           <div className="form-group">
             <select
-              className="form-control"
+              className="form-group"
               id="categoryid"
               placeholder="Category"
               name="categoryid"
-              onChange={this.handleCategoryChange}
+              value={this.state.course.category}
+              onChange={this.handleCategoryChange1}
             >
-              {this.state.categories.map(cat => (
-                <option key={cat.id} value={cat.id} defaultValue={cat.id}>
-                  {cat.name}
-                </option>
+              {this.state.categories.map(option => (
+                <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
+            <Select
+              options={this.state.categories}
+              value={this.state.course.category}
+              placeholder="Category"
+              onChange={this.handleCategoryChange}
+            >
+            </Select>
           </div>
           <button
             type="submit"
             className="btn btn-success"
             disabled={this.state.disabled}
           >
-            <FontAwesomeIcon icon={faSave} /> {/* SAVE */}
-            Save
+            <i className="fas fa-save mr-2 fa-2x"></i>
+            <label className="code-font">Save</label>
           </button>
         </form>
       </div>
@@ -240,6 +236,16 @@ class SaveViewCourse extends Component {
   }
 
   handleCategoryChange(event) {
+    this.setState({
+      course: {
+        ...this.state.course,
+        category: event.value,
+      },
+    });
+    this.toggleRequiredFields();
+  }
+
+  handleCategoryChange1(event) {
     this.setState({
       course: {
         ...this.state.course,
