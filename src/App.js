@@ -7,10 +7,10 @@ import 'mdbreact/dist/css/mdb.css';
 //import $ from 'jquery';
 
 import Courses from './components/Courses/Courses';
-import Students from './components/Students';
+import Students from './components/Students/Students';
 import Home from './components/Home';
 import SaveViewCourse from './components/Courses/SaveViewCourse';
-import SaveViewStudent from './components/SaveViewStudent';
+import SaveViewStudent from './components/Students/SaveViewStudent';
 
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';

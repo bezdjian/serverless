@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import StudentService from '../services/StudentService';
+import StudentService from '../../services/StudentService';
 
-import user from '../img/user.png';
+import user from './img/user.png';
 
 class Students extends Component {
   constructor(...args) {
