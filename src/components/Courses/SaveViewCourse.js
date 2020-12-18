@@ -160,7 +160,9 @@ class SaveViewCourse extends Component {
               onChange={this.handleCategoryChange1}
             >
               {this.state.categories.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
               ))}
             </select>
             <Select
@@ -168,8 +170,7 @@ class SaveViewCourse extends Component {
               value={this.state.course.category}
               placeholder="Category"
               onChange={this.handleCategoryChange}
-            >
-            </Select>
+            ></Select>
           </div>
           <button
             type="submit"

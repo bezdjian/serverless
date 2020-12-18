@@ -92,13 +92,20 @@ class Courses extends Component {
                       orderLg1 = 'order-lg-1';
                     }
                     // TODO: Remove this after fixing the course image.
-                    var imageClass = course.idNumber.includes('aws') ? 'aws-img' : course.idNumber.includes('spring') ? 'spring-img' : 'si2'
-                    
+                    var imageClass = course.idNumber.includes('aws')
+                      ? 'aws-img'
+                      : course.idNumber.includes('spring')
+                      ? 'spring-img'
+                      : 'si2';
+
                     return (
                       <div className="row no-gutters" key={'crow' + i}>
                         <div
                           className={
-                            'col-lg-6 text-white showcase-img ' + orderLg2 + ' ' + imageClass
+                            'col-lg-6 text-white showcase-img ' +
+                            orderLg2 +
+                            ' ' +
+                            imageClass
                           }
                         ></div>
                         <div
@@ -147,16 +154,16 @@ class Courses extends Component {
                   })}
                 </div>
                 <div className="btn-group">
-                <Button
-                  className="btn btn-success p-2 mb-2 rounded-0"
-                  onClick={() =>
-                    this.props.history.push('/view-save-course/' + -1)
-                  }
-                >
-                  <i className="fas fa-plus"></i>
-                  Add a new course
-                </Button>
-              </div>
+                  <Button
+                    className="btn btn-success p-2 mb-2 rounded-0"
+                    onClick={() =>
+                      this.props.history.push('/view-save-course/' + -1)
+                    }
+                  >
+                    <i className="fas fa-plus"></i>
+                    Add a new course
+                  </Button>
+                </div>
               </section>
             </div>
           )}
