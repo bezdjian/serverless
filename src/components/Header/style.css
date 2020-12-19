@@ -1,6 +1,5 @@
 header.masthead {
   position: relative;
-  background-color: #343a40;
   background: url(./img/bg-masthead.jpg) no-repeat center center;
   background-size: cover;
   padding-top: 6rem;
@@ -34,7 +33,7 @@ header.masthead h1 {
 }
 
 .nav-item a:hover {
-  background-color: #007bff;
+  background-color: #343a40;
   color: #ffffff;
 }
 
