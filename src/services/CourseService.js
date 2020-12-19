@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { v4 as uuid } from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 const FETCH_COURSES_URL = process.env.REACT_APP_FETCH_COURSES_URL;
 const SAVE_COURSE_URL = process.env.REACT_APP_SAVE_COURSE_URL;
@@ -19,19 +19,20 @@ class CourseService {
     return await axios.delete(`${REMOVE_COURSE_URL}/remove/${id}`);
   }
 
-  async saveCourse(course, file) {
-    // Uploading image runs after response? make async? none async?
-    if (file) {
+  saveCourse(course, file) {
+    let imageUrl = "";
+    if(file) {
+      // Uploading image runs after response? make async? none async?
       console.log('Uploading image: ', file);
+      imageUrl = this.uploadCourseImage(file);
       //Add image info into course object
       course.imageName = file.name;
-      var imageUrl = this.uploadCourseImage(file);
     }
 
     console.log('imageUrl: ', imageUrl);
     course.imageUrl = imageUrl;
     // When creating a new course, ID is null, so we assign an UUID.
-    if (!course.id) course.id = uuid().replace(/-/g, '');
+    if(!course.id || course.id === -1) course.id = uuid().replace(/-/g, '');
 
     return this.save(course);
   }
@@ -48,11 +49,11 @@ class CourseService {
     );
     console.log('S3 RESPONSE: ', response);
     return response.data.message;
-  };
+  }
 
-  async save(course) {
+  save(course) {
     console.log('Saving course: ', course);
-    return await axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
+    return axios.post(`${SAVE_COURSE_URL}/save`, JSON.stringify(course), {
       headers: {
         'Content-Type': 'application/json',
       },
