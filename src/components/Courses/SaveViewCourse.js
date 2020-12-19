@@ -204,12 +204,18 @@ class SaveViewCourse extends Component {
 
           <div className="form-row">
             <button
-              type="submit"
+              type="button"
               className="btn btn-outline-info"
+              onClick={() => window.location = '/courses'}
+            >
+              <i className="fas fa-backward mr-2 fa-2x" />
+            </button>
+            <button
+              type="submit"
+              className="btn btn-info"
               disabled={this.state.disabled}
             >
               <i className="fas fa-save mr-2 fa-2x" />
-              <label className="code-font">Save</label>
             </button>
             <button
               type="reset"
@@ -217,15 +223,6 @@ class SaveViewCourse extends Component {
               onClick={() => this.clearForm()}
             >
               <i className="fas fa-redo mr-2 fa-2x" />
-              <label className="code-font">Reset</label>
-            </button>
-            <button
-              type="button"
-              className="btn btn-info"
-              //onClick={window.location = '/'}
-            >
-              <i className="fas fa-backward mr-2 fa-2x" />
-              <label className="code-font">Back</label>
             </button>
           </div>
         </form>

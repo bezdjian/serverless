@@ -132,23 +132,23 @@ class Courses extends Component {
                             </p>
                             <br />
                             <p className="lead mb-0 code-font">
-                              Price: {course.price} :-
+                              Price: {course.price}:-
                             </p>
 
                             <div
                               className="btn-group btn-group-actions"
                               role="group"
                             >
-                              <Button
-                                className="btn btn-danger m-0 p-3"
+                              <a href="#"
+                                className="btn btn-danger m-0"
                                 onClick={() =>
                                   this.deleteCourseClicked(course.id)
                                 }
                               >
                                 <i className="fas fa-trash fa-2x" />
-                              </Button>
-                              <Button
-                                className="btn btn-info m-0 p-3"
+                              </a>
+                              <a href="#"
+                                className="btn btn-info m-0"
                                 onClick={() =>
                                   this.props.history.push(
                                     '/view-save-course/' + course.id,
@@ -156,7 +156,7 @@ class Courses extends Component {
                                 }
                               >
                                 <i className="fas fa-edit fa-2x" />
-                              </Button>
+                              </a>
                             </div>
                           </div>
                         </div>
