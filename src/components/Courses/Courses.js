@@ -80,7 +80,7 @@ class Courses extends Component {
             </Alert>
           ) : (
             <div>
-              <div className="btn-group float-right">
+              <div className="btn-group">
                 <Button
                   className="btn btn-info p-2 mb-2 rounded-pill"
                   onClick={() =>

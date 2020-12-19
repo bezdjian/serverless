@@ -17,10 +17,10 @@ class SaveViewStudent extends Component {
         country: '',
         image: '',
       },
-      validFields: id > 0 ? true : false,
+      validFields: id > 0,
       text: 'Create Student',
       error: null,
-      disabled: id > 0 ? false : true,
+      disabled: id <= 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleStudentFirstNameChange = this.handleStudentFirstNameChange.bind(
@@ -71,7 +71,7 @@ class SaveViewStudent extends Component {
         {!this.state.validFields && (
           <div className="alert alert-danger">
             <p>
-              <i class="fas fa-exclamation-triangle"></i>
+              <i className="fas fa-exclamation-triangle"/>
               All fields are required
             </p>
           </div>
@@ -171,7 +171,7 @@ class SaveViewStudent extends Component {
               className="btn btn-outline-info"
               disabled={this.state.disabled}
             >
-              <i className="fas fa-save mr-2 fa-2x"></i>
+              <i className="fas fa-save mr-2 fa-2x"/>
               <label className="code-font">Save</label>
             </button>
           </form>

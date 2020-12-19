@@ -19,21 +19,21 @@ class SaveViewCourse extends Component {
         id: id,
         name: '',
         idNumber: '',
-        image: '',
+        imageUrl: '',
+        imageName: '',
         description: '',
         price: '',
         category: '',
       },
-      // TODO: find a way to get current categories.
+      // TODO: find a way to get categories from DB.
       categories: [
         {value: 'Cloud', label: 'Cloud'},
         {value: 'Development', label: 'Development'},
       ],
       imageFile: '',
       invalidFields: false,
-      text: 'Create course',
       error: null,
-      disabled: false,
+      disabled: id !== -1
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -56,7 +56,6 @@ class SaveViewCourse extends Component {
               //image: response.data.courses[0].imageUrl,
             },
             imageFile: response.data.courses[0],
-            text: 'Edit course',
           });
         })
         .catch(err => console.log('Error while fetching course', err)),
@@ -73,7 +72,7 @@ class SaveViewCourse extends Component {
     return (
       <div className="container pt-5 pb-5">
         <div className="mb-4">
-          <h2>{this.state.text}</h2>
+          <h2>Save course</h2>
         </div>
 
         {this.state.invalidFields && (
@@ -98,49 +97,71 @@ class SaveViewCourse extends Component {
         )}
 
         <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              placeholder="Course name"
-              name="name"
-              value={this.state.course.name}
-              onChange={this.handleCourseNameChange}
-            />
+          <div className="form-row">
+            <div className="col">
+              <div className="md-form">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Course name"
+                  name="name"
+                  value={this.state.course.name}
+                  onChange={this.handleCourseNameChange}
+                />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              id="idNumber"
-              placeholder="ID Number"
-              name="idNumber"
-              value={this.state.course.idNumber}
-              onChange={this.handleIdNumberChange}
-            />
+
+          <div className="form-row">
+            <div className="col">
+              <div className="md-form">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="idNumber"
+                  placeholder="ID Number"
+                  name="idNumber"
+                  value={this.state.course.idNumber}
+                  onChange={this.handleIdNumberChange}
+                />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              id="price"
-              placeholder="Price"
-              name="price"
-              value={this.state.course.price}
-              onChange={this.handlePriceChange}
-            />
+
+          <div className="form-row">
+            <div className="col">
+              <div className="md-form">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="price"
+                  placeholder="Price"
+                  name="price"
+                  value={this.state.course.price}
+                  onChange={this.handlePriceChange}
+                />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              alt="Course image"
-              type="file"
-              placeholder="Course image"
-              onChange={this.handleImageChange}
-            />
-            <img alt="" src={this.state.course.image} />
+
+          <div className="form-row">
+            <div className="col">
+              <div className="md-form">
+                <input
+                  alt="Course image"
+                  type="file"
+                  placeholder="Course image"
+                  onChange={this.handleImageChange}
+                />
+                <img alt="" src={this.state.course.image} />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
+
+          <div className="form-row">
+            <div className="col">
+              <div className="md-form">
             <textarea
               className="form-control"
               id="description"
@@ -149,37 +170,47 @@ class SaveViewCourse extends Component {
               value={this.state.course.description}
               onChange={this.handleDescriptionChange}
             />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <select
-              className="form-group"
-              id="categoryid"
-              placeholder="Category"
-              name="categoryid"
-              value={this.state.course.category}
-              onChange={this.handleCategoryChange1}
+
+          <div className="form-row">
+            <div className="col">
+              <div className="md-form">
+                <select
+                  className="form-group"
+                  id="categoryid"
+                  placeholder="Category"
+                  name="categoryid"
+                  value={this.state.course.category}
+                  onChange={this.handleCategoryChange1}
+                >
+                  {this.state.categories.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <Select
+                  options={this.state.categories}
+                  value={this.state.course.category}
+                  placeholder="Category"
+                  onChange={this.handleCategoryChange}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="form-row">
+            <button
+              type="submit"
+              className="btn btn-outline-info"
+              disabled={this.state.disabled}
             >
-              {this.state.categories.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-            <Select
-              options={this.state.categories}
-              value={this.state.course.category}
-              placeholder="Category"
-              onChange={this.handleCategoryChange}
-            />
+              <i className="fas fa-save mr-2 fa-2x" />
+              <label className="code-font">Save</label>
+            </button>
           </div>
-          <button
-            type="submit"
-            className="btn btn-outline-info"
-            disabled={this.state.disabled}
-          >
-            <i className="fas fa-save mr-2 fa-2x" />
-            <label className="code-font">Save</label>
-          </button>
         </form>
       </div>
     );
@@ -259,7 +290,8 @@ class SaveViewCourse extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    if(this.isValidFields()) {
+    console.log("this.isValidFields(); ", this.FormHasValidData())
+    if(this.FormHasValidData()) {
       trackPromise(
         CourseService.saveCourse(this.state.course, this.state.imageFile)
         .then(() => {
@@ -280,24 +312,19 @@ class SaveViewCourse extends Component {
     }
   }
 
-  isValidFields() {
-    return (
-      this.state.course.name !== '' &&
-      this.state.course.idNumber !== '' &&
-      this.state.course.price !== ''
-    );
+  FormHasValidData() {
+    return this.state.course.name !== '' && this.state.course.idNumber !== '' && this.state.course.price !== '' &&
+      this.state.course.name != null && this.state.course.idNumber != null && this.state.course.price != null;
   }
 
   toggleRequiredFields() {
-    if(this.isValidFields()) {
+    if(this.FormHasValidData()) {
       this.setState({
         disabled: false,
-        invalidFields: false,
       });
     } else {
       this.setState({
         disabled: true,
-        invalidFields: true,
       });
     }
   }
