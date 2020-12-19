@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Select from 'react-select';
 import './style.css';
 import CourseService from '../../services/CourseService';
 
-import {Alert} from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
-import {trackPromise} from 'react-promise-tracker';
+import { trackPromise } from 'react-promise-tracker';
 
 class SaveViewCourse extends Component {
   constructor(...args) {
     super(...args);
     //Get the course ID from params.
-    const {id} = this.props.match.params;
+    const { id } = this.props.match.params;
     console.log('Course ID: ', id);
 
     this.state = {
@@ -27,8 +27,8 @@ class SaveViewCourse extends Component {
       },
       // TODO: find a way to get categories from DB.
       categories: [
-        {value: 'Cloud', label: 'Cloud'},
-        {value: 'Development', label: 'Development'},
+        { value: 'Cloud', label: 'Cloud' },
+        { value: 'Development', label: 'Development' },
       ],
       imageFile: '',
       invalidFields: false,
@@ -46,20 +46,20 @@ class SaveViewCourse extends Component {
     this.clearForm = this.clearForm.bind(this);
 
     // Call load course to set the values in this.state
-    if(id !== -1) {
+    if (id !== -1) {
       trackPromise(
         CourseService.findCourse(id)
-        .then(response => {
-          console.log('Viewing course ', response.data.courses[0]);
-          this.setState({
-            course: {
-              ...response.data.courses[0],
-              //image: response.data.courses[0].imageUrl,
-            },
-            imageFile: response.data.courses[0],
-          });
-        })
-        .catch(err => console.log('Error while fetching course', err)),
+          .then(response => {
+            console.log('Viewing course ', response.data.courses[0]);
+            this.setState({
+              course: {
+                ...response.data.courses[0],
+                //image: response.data.courses[0].imageUrl,
+              },
+              imageFile: response.data.courses[0],
+            });
+          })
+          .catch(err => console.log('Error while fetching course', err)),
       );
     }
     console.log('Course in state: ', this.state.course);
@@ -206,7 +206,7 @@ class SaveViewCourse extends Component {
             <button
               type="button"
               className="btn btn-outline-info"
-              onClick={() => window.location = '/courses'}
+              onClick={() => (window.location = '/courses')}
             >
               <i className="fas fa-backward mr-2 fa-2x" />
             </button>
@@ -321,18 +321,18 @@ class SaveViewCourse extends Component {
     event.preventDefault();
 
     console.log('this.isValidFields(); ', this.FormHasValidData());
-    if(this.FormHasValidData()) {
+    if (this.FormHasValidData()) {
       trackPromise(
         CourseService.saveCourse(this.state.course, this.state.imageFile)
-        .then(() => {
-          this.props.history.push('/courses');
-        })
-        .catch(err => {
-          console.log('Error on save: ', err.message);
-          this.setState({
-            error: err.message,
-          });
-        }),
+          .then(() => {
+            this.props.history.push('/courses');
+          })
+          .catch(err => {
+            console.log('Error on save: ', err.message);
+            this.setState({
+              error: err.message,
+            });
+          }),
       );
     } else {
       this.setState({
@@ -354,7 +354,7 @@ class SaveViewCourse extends Component {
   }
 
   toggleRequiredFields() {
-    if(this.FormHasValidData()) {
+    if (this.FormHasValidData()) {
       this.setState({
         disabled: false,
       });

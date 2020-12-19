@@ -1,9 +1,9 @@
 import React from 'react';
 import Loader from 'react-loader-spinner';
-import {usePromiseTracker} from 'react-promise-tracker';
+import { usePromiseTracker } from 'react-promise-tracker';
 
 const LoadingIndicator = () => {
-  const {promiseInProgress} = usePromiseTracker();
+  const { promiseInProgress } = usePromiseTracker();
 
   return (
     promiseInProgress && (

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -13,7 +13,7 @@ import SaveViewStudent from './components/Students/SaveViewStudent';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Test from './components/NotFound/NotFound';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   render() {

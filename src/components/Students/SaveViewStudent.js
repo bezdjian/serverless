@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import StudentService from '../../services/StudentService';
 
 class SaveViewStudent extends Component {
   constructor(...args) {
     super(...args);
     //Get the Student ID from params.
-    const {id} = this.props.match.params;
+    const { id } = this.props.match.params;
 
     this.state = {
       student: {
@@ -34,18 +34,18 @@ class SaveViewStudent extends Component {
     this.handleCountryChange = this.handleCountryChange.bind(this);
 
     // Call load student to set the values in this.state
-    if(id > 0) {
+    if (id > 0) {
       this.loadViewingStudent(id)
-      .then(response => {
-        console.log('Viewing Student ', response.data);
-        this.setState({
-          student: {
-            ...response.data,
-          },
-          text: 'Edit Student',
-        });
-      })
-      .catch(err => console.log(err));
+        .then(response => {
+          console.log('Viewing Student ', response.data);
+          this.setState({
+            student: {
+              ...response.data,
+            },
+            text: 'Edit Student',
+          });
+        })
+        .catch(err => console.log(err));
     }
   }
 
@@ -235,17 +235,17 @@ class SaveViewStudent extends Component {
     console.log('*** Form values in this.state.student ***');
     console.log(this.state.student);
 
-    if(this.validateFields()) {
+    if (this.validateFields()) {
       StudentService.createStudent(this.state.student)
-      .then(() => {
-        this.props.history.push('/students');
-      })
-      .catch(err => {
-        console.log('Error on save student: ', err.message);
-        this.setState({
-          error: err.message,
+        .then(() => {
+          this.props.history.push('/students');
+        })
+        .catch(err => {
+          console.log('Error on save student: ', err.message);
+          this.setState({
+            error: err.message,
+          });
         });
-      });
     } else {
       this.setState({
         disabled: true,
@@ -255,12 +255,12 @@ class SaveViewStudent extends Component {
   }
 
   validateFields() {
-    if(
+    if (
       this.state.student.username &&
       this.state.student.firstname &&
       this.state.student.lastname
     ) {
-      this.setState({validFields: true});
+      this.setState({ validFields: true });
       return true;
     }
     return false;
@@ -268,7 +268,7 @@ class SaveViewStudent extends Component {
 
   toggleButton_requiredFields() {
     console.log('** this.validateFields(): ', this.validateFields());
-    if(this.validateFields()) {
+    if (this.validateFields()) {
       this.setState({
         disabled: false,
         validFields: true,
