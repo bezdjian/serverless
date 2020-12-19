@@ -31,7 +31,6 @@ class Courses extends Component {
     trackPromise(
       CourseService.findAllCourses()
         .then(response => {
-          console.log('Courses: ', response.data.courses);
           this.setState({
             courses: response.data.courses,
             message: 'Courses are loaded',
@@ -52,9 +51,13 @@ class Courses extends Component {
     trackPromise(
       CourseService.deleteCourse(id)
         .then(response => {
-          console.log('Course with id', id, 'deleted');
-          this.setState({ message: `Course with id ${id} deleted` });
-          this.refreshCourses();
+          if(response.status === 200){
+            this.setState({ message: `Course with id ${id} deleted` });
+            this.refreshCourses();
+          }else {
+            this.setState({ message: `Could not delete course with id ${id}` });
+            this.refreshCourses();
+          }
         })
         .catch(error => {
           console.log('Error while removing a course: ', error.message);
@@ -139,17 +142,15 @@ class Courses extends Component {
                             className="btn-group btn-group-actions"
                             role="group"
                           >
-                            <a
-                              href="#"
+                            <div
                               className="btn btn-danger m-0"
                               onClick={() =>
                                 this.deleteCourseClicked(course.id)
                               }
                             >
                               <i className="fas fa-trash fa-2x" />
-                            </a>
-                            <a
-                              href="#"
+                            </div>
+                            <div
                               className="btn btn-info m-0"
                               onClick={() =>
                                 this.props.history.push(
@@ -158,7 +159,7 @@ class Courses extends Component {
                               }
                             >
                               <i className="fas fa-edit fa-2x" />
-                            </a>
+                            </div>
                           </div>
                         </div>
                       </div>
