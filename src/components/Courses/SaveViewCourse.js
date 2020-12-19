@@ -33,7 +33,7 @@ class SaveViewCourse extends Component {
       imageFile: '',
       invalidFields: false,
       error: null,
-      disabled: id !== -1
+      disabled: id !== -1,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCourseNameChange = this.handleCourseNameChange.bind(this);
@@ -43,6 +43,7 @@ class SaveViewCourse extends Component {
     this.handleIdNumberChange = this.handleIdNumberChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+    this.clearForm = this.clearForm.bind(this);
 
     // Call load course to set the values in this.state
     if(id !== -1) {
@@ -162,14 +163,14 @@ class SaveViewCourse extends Component {
           <div className="form-row">
             <div className="col">
               <div className="md-form">
-            <textarea
-              className="form-control"
-              id="description"
-              placeholder="Description"
-              name="description"
-              value={this.state.course.description}
-              onChange={this.handleDescriptionChange}
-            />
+                <textarea
+                  className="form-control"
+                  id="description"
+                  placeholder="Description"
+                  name="description"
+                  value={this.state.course.description}
+                  onChange={this.handleDescriptionChange}
+                />
               </div>
             </div>
           </div>
@@ -210,10 +211,42 @@ class SaveViewCourse extends Component {
               <i className="fas fa-save mr-2 fa-2x" />
               <label className="code-font">Save</label>
             </button>
+            <button
+              type="reset"
+              className="btn btn-info"
+              onClick={() => this.clearForm()}
+            >
+              <i className="fas fa-redo mr-2 fa-2x" />
+              <label className="code-font">Reset</label>
+            </button>
+            <button
+              type="button"
+              className="btn btn-info"
+              //onClick={window.location = '/'}
+            >
+              <i className="fas fa-backward mr-2 fa-2x" />
+              <label className="code-font">Back</label>
+            </button>
           </div>
         </form>
       </div>
     );
+  }
+
+  clearForm() {
+    // Clears course data except for ID.
+    this.setState({
+      course: {
+        ...this.state.course,
+        name: '',
+        idNumber: '',
+        imageUrl: '',
+        imageName: '',
+        description: '',
+        price: '',
+        category: '',
+      },
+    });
   }
 
   handleCourseNameChange(event) {
@@ -290,7 +323,7 @@ class SaveViewCourse extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log("this.isValidFields(); ", this.FormHasValidData())
+    console.log('this.isValidFields(); ', this.FormHasValidData());
     if(this.FormHasValidData()) {
       trackPromise(
         CourseService.saveCourse(this.state.course, this.state.imageFile)
@@ -313,8 +346,14 @@ class SaveViewCourse extends Component {
   }
 
   FormHasValidData() {
-    return this.state.course.name !== '' && this.state.course.idNumber !== '' && this.state.course.price !== '' &&
-      this.state.course.name != null && this.state.course.idNumber != null && this.state.course.price != null;
+    return (
+      this.state.course.name !== '' &&
+      this.state.course.idNumber !== '' &&
+      this.state.course.price !== '' &&
+      this.state.course.name != null &&
+      this.state.course.idNumber != null &&
+      this.state.course.price != null
+    );
   }
 
   toggleRequiredFields() {

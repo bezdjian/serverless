@@ -87,8 +87,8 @@ class Courses extends Component {
                     this.props.history.push('/view-save-course/' + -1)
                   }
                 >
-                  <i className="fas fa-plus" />
-                  Add a new course
+                  <i className="fas fa-plus mr-2" />
+                  Add course
                 </Button>
               </div>
               <section className="showcase">

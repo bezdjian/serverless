@@ -31,18 +31,12 @@ body {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
   background-color: transparent;
-  border: none;
-  border-bottom-color: currentcolor;
-  border-bottom-style: none;
-  border-bottom-width: medium;
   border-bottom: 1px solid #ced4da;
   border-radius: 0;
   outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
@@ -54,8 +48,6 @@ body {
   color: #757575;
   cursor: text;
   -webkit-transition: color .2s ease-out, -webkit-transform .2s ease-out;
-  transition: color .2s ease-out, -webkit-transform .2s ease-out;
-  transition: transform .2s ease-out, color .2s ease-out;
   transition: transform .2s ease-out, color .2s ease-out, -webkit-transform .2s ease-out;
   -webkit-transform: translateY(12px);
   transform: translateY(12px);
@@ -69,8 +61,13 @@ body {
   border: 2px solid #33b5e5 !important;
 }
 
-button[type="submit"] {
+button[type="submit"], button[type="reset"], button[type="button"] {
   width: 150px;
   height: 50px;
   padding: 10px;
+}
+
+button label {
+  vertical-align: super;
+  font-size: 14px;
 }

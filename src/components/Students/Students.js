@@ -23,8 +23,9 @@ class Students extends Component {
     StudentService.findAllStudents()
     .then(response => {
       const {status, data} = response;
-      if(status === 204) { // 204 NO_CONTENT
-        console.log("IN IF");
+      if(status === 204) {
+        // 204 NO_CONTENT
+        console.log('IN IF');
         this.setState({
           message: 'There are no students at this moment',
           error: 'There are no students at this moment',
@@ -68,11 +69,14 @@ class Students extends Component {
             </div>
           )}
           <div className="card-columns" key="cardsKey">
-            {this.state.students && this.state.students.map(student => (
+            {this.state.students &&
+            this.state.students.map(student => (
               <div className="card bg-light" key={student.id}>
                 <img
                   onClick={() =>
-                    this.props.history.push('/view-save-student/' + student.id)
+                    this.props.history.push(
+                      '/view-save-student/' + student.id,
+                    )
                   }
                   className="card-img-top pointer-cursor"
                   key={student.id}

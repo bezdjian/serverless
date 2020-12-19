@@ -20,7 +20,7 @@ class CourseService {
   }
 
   saveCourse(course, file) {
-    let imageUrl = "";
+    let imageUrl = '';
     if(file) {
       // Uploading image runs after response? make async? none async?
       console.log('Uploading image: ', file);

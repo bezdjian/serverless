@@ -71,7 +71,7 @@ class SaveViewStudent extends Component {
         {!this.state.validFields && (
           <div className="alert alert-danger">
             <p>
-              <i className="fas fa-exclamation-triangle"/>
+              <i className="fas fa-exclamation-triangle" />
               All fields are required
             </p>
           </div>
@@ -171,7 +171,7 @@ class SaveViewStudent extends Component {
               className="btn btn-outline-info"
               disabled={this.state.disabled}
             >
-              <i className="fas fa-save mr-2 fa-2x"/>
+              <i className="fas fa-save mr-2 fa-2x" />
               <label className="code-font">Save</label>
             </button>
           </form>

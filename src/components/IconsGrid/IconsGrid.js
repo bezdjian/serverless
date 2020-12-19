@@ -13,9 +13,7 @@ export class IconsGrid extends Component {
                   <i className="fa fa-desktop m-auto text-primary"></i>
                 </div>
                 <h3>Modern courses</h3>
-                <p className="lead mb-0">
-                  From AWS, to Java
-                </p>
+                <p className="lead mb-0">From AWS, to Java</p>
               </div>
             </div>
             <div className="col-lg-4">
@@ -24,9 +22,7 @@ export class IconsGrid extends Component {
                   <i className="fa fa-layer-group  m-auto text-primary"></i>
                 </div>
                 <h3>All levels</h3>
-                <p className="lead mb-0">
-                  From beginner to advanced!
-                </p>
+                <p className="lead mb-0">From beginner to advanced!</p>
               </div>
             </div>
             <div className="col-lg-4">
