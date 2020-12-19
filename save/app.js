@@ -1,19 +1,19 @@
-var AWS = require("aws-sdk");
-var origin = "";
+const AWS = require("aws-sdk");
+let origin = "";
 
-exports.lambdaHandler = function (event, context, callback) {
+exports.lambdaHandler = function(event, context, callback) {
   // THIS will NOT work with sam local invoke -e event.json, only start-api.
   // Origin is sometimes small letter ?!?!
   origin = event.headers.Origin ? event.headers.Origin : event.headers.origin;
 
-  var course = JSON.parse(event.body);
+  const course = JSON.parse(event.body);
   // Create DynamoDB object
-  var ddb = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
+  const ddb = new AWS.DynamoDB.DocumentClient({region: "eu-north-1"});
   // Call DynamoDB
-  ddb.put(createDdbParams(course), function (err, data) {
-    if (err) {
+  ddb.put(createDdbParams(course), function(err, data) {
+    if(err) {
       console.log("Error while saving a course with ID " + course.id, err);
-      callback(Error(err), null);
+      callback(Error(err.message), null);
     } else {
       console.log("Successfully saved a course with ID ", course.id);
       callback(null, respond(200, course));
@@ -42,7 +42,7 @@ function getAllowedOrigin() {
     "http://localhost:3001",
     "http://mylms-frontend-app.s3-website.eu-north-1.amazonaws.com",
   ];
-  if (allowedOrigins.includes(origin)) return origin;
+  if(allowedOrigins.includes(origin)) return origin;
 
   return "";
 }
