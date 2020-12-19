@@ -1,17 +1,17 @@
-var AWS = require("aws-sdk");
-var origin = "";
+const AWS = require("aws-sdk");
+let origin = "";
 
-exports.lambdaHandler = function (event, context, callback) {
+exports.lambdaHandler = function(event, context, callback) {
   origin = event.headers.origin;
-  var { proxy } = event.pathParameters;
-  
+  const {proxy} = event.pathParameters;
+
   //Create Dynamo DB
-  var ddb = new AWS.DynamoDB.DocumentClient({ region: "eu-north-1" });
+  const ddb = new AWS.DynamoDB.DocumentClient({region: "eu-north-1"});
   //Scan the table
-  ddb.scan(createParams(proxy), function (err, data) {
-    if (err) {
+  ddb.scan(createParams(proxy), function(err, data) {
+    if(err) {
       console.log("Error while fetching courses", err);
-      callback(Error(err), null);
+      callback(new Error(err.message), null);
     } else {
       console.log("Fetched " + data.Items.length + " courses.");
       callback(null, respond(200, data.Items));
@@ -38,17 +38,17 @@ function getAllowedOrigin() {
     "http://localhost:3001",
     "http://mylms-frontend-app.s3-website.eu-north-1.amazonaws.com",
   ];
-  if (allowedOrigins.includes(origin)) return origin;
+  if(allowedOrigins.includes(origin)) return origin;
 
   return "";
 }
 
 function createParams(proxy) {
   // Digit Regex
-  var reg = new RegExp("^\\d+$");
+  //var reg = new RegExp("^\\d+$");
   const tableName = process.env.DDB_TABLE;
 
-  if (proxy === "all") {
+  if(proxy === "all") {
     // Return only table name, it scans and returns the whole table.
     return {
       TableName: tableName,
@@ -56,9 +56,9 @@ function createParams(proxy) {
   } else {
     return {
       TableName: tableName,
-      // Selecting Columns, name is reserved, that's why made it like a variable.
+      // Selecting Columns, 'name' is reserved, that's why made it like a variable.
       ProjectionExpression: "#id, category, description, #name, price, idNumber, imageName, imageUrl",
-      // The 'Query'
+      // The 'Query' we will pass the value as variable
       FilterExpression: "#id = :id",
       // Applying the column names as variables to their values.
       ExpressionAttributeNames: {
