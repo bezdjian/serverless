@@ -44,8 +44,6 @@ function getAllowedOrigin() {
 }
 
 function createParams(proxy) {
-  // Digit Regex
-  //var reg = new RegExp("^\\d+$");
   const tableName = process.env.DDB_TABLE;
 
   if(proxy === "all") {
