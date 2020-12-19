@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import StudentService from '../../services/StudentService';
 
 import user from './img/user.png';
@@ -21,32 +21,32 @@ class Students extends Component {
 
   refreshStudents() {
     StudentService.findAllStudents()
-      .then(response => {
-        const { status, data } = response;
-        if(status === 204){ // 204 NO_CONTENT
-          console.log("IN IF");
-          this.setState({
-            message: 'There are no students at this moment',
-            error: 'There are no students at this moment',
-            loading: false,
-          });
-        }else {
-          this.setState({
-            students: data,
-            message: 'Students are loaded',
-            error: null,
-            loading: false,
-          });
-        }
-      })
-      .catch(error => {
-        console.log('findAllStudents: ERROR: ' + error.message);
+    .then(response => {
+      const {status, data} = response;
+      if(status === 204) { // 204 NO_CONTENT
+        console.log("IN IF");
         this.setState({
-          error: error,
-          message: error.message,
+          message: 'There are no students at this moment',
+          error: 'There are no students at this moment',
           loading: false,
         });
+      } else {
+        this.setState({
+          students: data,
+          message: 'Students are loaded',
+          error: null,
+          loading: false,
+        });
+      }
+    })
+    .catch(error => {
+      console.log('findAllStudents: ERROR: ' + error.message);
+      this.setState({
+        error: error,
+        message: error.message,
+        loading: false,
       });
+    });
   }
 
   render() {
@@ -121,7 +121,7 @@ class Students extends Component {
     // Add trackPromise
     StudentService.deleteStudent(id).then(response => {
       console.log('Student with id', id, 'deleted');
-      this.setState({ message: `Student with id ${id} deleted` });
+      this.setState({message: `Student with id ${id} deleted`});
       this.refreshStudents();
     });
   }

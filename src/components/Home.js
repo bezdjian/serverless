@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
-import { IconsGrid } from './IconsGrid/IconsGrid';
+import {IconsGrid} from './IconsGrid/IconsGrid';
 
 class Home extends Component {
   render() {

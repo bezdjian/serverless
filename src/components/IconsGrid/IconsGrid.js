@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './style.css';
 
 export class IconsGrid extends Component {

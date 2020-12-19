@@ -80,7 +80,7 @@ class SaveViewCourse extends Component {
           <Alert dismissible variant="danger">
             {/*<Alert.Heading>Oops!</Alert.Heading>*/}
             <p>
-              <i className="fas fa-exclamation-triangle mr-2"/>
+              <i className="fas fa-exclamation-triangle mr-2" />
               All fields are required
             </p>
           </Alert>
@@ -90,7 +90,7 @@ class SaveViewCourse extends Component {
           <div className="alert alert-danger">
             <Alert dismissible variant="danger">
               <p>
-                <i className="fas fa-exclamation-triangle mr-2"/>
+                <i className="fas fa-exclamation-triangle mr-2" />
                 {this.state.error}
               </p>
             </Alert>
@@ -138,7 +138,7 @@ class SaveViewCourse extends Component {
               placeholder="Course image"
               onChange={this.handleImageChange}
             />
-            <img alt="" src={this.state.course.image}/>
+            <img alt="" src={this.state.course.image} />
           </div>
           <div className="form-group">
             <textarea
@@ -177,7 +177,7 @@ class SaveViewCourse extends Component {
             className="btn btn-outline-info"
             disabled={this.state.disabled}
           >
-            <i className="fas fa-save mr-2 fa-2x"/>
+            <i className="fas fa-save mr-2 fa-2x" />
             <label className="code-font">Save</label>
           </button>
         </form>

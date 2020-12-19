@@ -74,7 +74,7 @@ class Courses extends Component {
             <Alert dismissible variant="danger">
               <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
               <p>
-                <i className="fas fa-exclamation-triangle"/>
+                <i className="fas fa-exclamation-triangle" />
                 {this.state.message}
               </p>
             </Alert>
@@ -87,7 +87,7 @@ class Courses extends Component {
                     this.props.history.push('/view-save-course/' + -1)
                   }
                 >
-                  <i className="fas fa-plus"/>
+                  <i className="fas fa-plus" />
                   Add a new course
                 </Button>
               </div>
@@ -130,7 +130,7 @@ class Courses extends Component {
                             <p className="lead mb-0 code-font">
                               <code>Category:</code> {course.category}
                             </p>
-                            <br/>
+                            <br />
                             <p className="lead mb-0 code-font">
                               Price: {course.price} :-
                             </p>
@@ -145,7 +145,7 @@ class Courses extends Component {
                                   this.deleteCourseClicked(course.id)
                                 }
                               >
-                                <i className="fas fa-trash fa-2x"/>
+                                <i className="fas fa-trash fa-2x" />
                               </Button>
                               <Button
                                 className="btn btn-info m-0 p-3"
@@ -155,7 +155,7 @@ class Courses extends Component {
                                   )
                                 }
                               >
-                                <i className="fas fa-edit fa-2x"/>
+                                <i className="fas fa-edit fa-2x" />
                               </Button>
                             </div>
                           </div>

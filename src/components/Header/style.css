@@ -1,54 +1,62 @@
-header.masthead{
-    position:relative;background-color:#343a40;
-    background:url(./img/bg-masthead.jpg) no-repeat center center;
-    background-size:cover;
-    padding-top:6rem;
-    padding-bottom:6rem
+header.masthead {
+  position: relative;
+  background-color: #343a40;
+  background: url(./img/bg-masthead.jpg) no-repeat center center;
+  background-size: cover;
+  padding-top: 6rem;
+  padding-bottom: 6rem
 }
 
-header.masthead .overlay{
-    position:absolute;background-color:#212529;height:100%;width:100%;top:0;left:0;opacity:.3
+header.masthead .overlay {
+  position: absolute;
+  background-color: #212529;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: .3
 }
 
-header.masthead h1{
-    font-size:2rem
+header.masthead h1 {
+  font-size: 2rem
 }
 
-.navbar-brand{
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-    color: #000000;
-    font-weight: bold;
+.navbar-brand {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  color: #000000;
+  font-weight: bold;
 }
 
-.nav-item a{
-    padding: 20px;
-    color: #000000;
-    font-weight: bold;
-}
-.nav-item a:hover{
-    background-color: #007bff;
-    color: #ffffff;
+.nav-item a {
+  padding: 20px;
+  color: #000000;
+  font-weight: bold;
 }
 
-.navbar-toggler .nav-item{
-    color: #000000;
+.nav-item a:hover {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.navbar-toggler .nav-item {
+  color: #000000;
 }
 
 .navbar-toggler-icon {
-    height: 1em;
+  height: 1em;
 }
+
 /* To make it not possible */
-.navbar .dropdown-menu a:not(.active){
-    color: none;
+.navbar .dropdown-menu a:not(.active) {
+  color: none;
 }
 
-@media (min-width:768px){
-   /* header.masthead{
-        padding-top:6rem;
-        padding-bottom:6rem;
-    }*/
-
-    header.masthead h1{
-        font-size:3rem;
-    }
+@media (min-width: 768px) {
+  /* header.masthead{
+       padding-top:6rem;
+       padding-bottom:6rem;
+   }*/
+  header.masthead h1 {
+    font-size: 3rem;
+  }
 }

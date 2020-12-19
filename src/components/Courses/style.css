@@ -1,43 +1,43 @@
-h2, p, label, input, select, option, textarea {   
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+h2, p, label, input, select, option, textarea {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .btn-group-actions {
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
 }
 
 .showcase .showcase-img {
-    min-height: 30rem;
-    background-size: cover;
+  min-height: 30rem;
+  background-size: cover;
 }
 
 .si1 {
-    background-image: url('img/bg-showcase-1.jpg');
+  background-image: url('img/bg-showcase-1.jpg');
 }
 
 .si2 {
-    background-image: url('img/bg-showcase-2.jpg');
+  background-image: url('img/bg-showcase-2.jpg');
 }
 
 .si3 {
-    background-image: url('img/bg-showcase-3.jpg');
+  background-image: url('img/bg-showcase-3.jpg');
 }
 
 .aws-img {
-    background-image: url('img/aws.png');
+  background-image: url('img/aws.png');
 }
 
 .spring-img {
-    background-image: url('img/spring1.png');
+  background-image: url('img/spring1.png');
 }
 
 .showcase .showcase-text {
-    padding: 3rem
+  padding: 3rem
 }
 
-@media (min-width:768px) {
-    .showcase .showcase-text {
-        padding: 7rem
-    }
+@media (min-width: 768px) {
+  .showcase .showcase-text {
+    padding: 7rem
+  }
 }

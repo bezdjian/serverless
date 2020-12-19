@@ -19,7 +19,7 @@ class StudentService {
 
   createStudent(data) {
     return axios.post(`${STUDENT_API_URL}/save`, data, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': 'application/json'},
     });
   }
 }
