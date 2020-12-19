@@ -1,7 +1,7 @@
-var AWS = require("aws-sdk");
-var origin = "";
+const AWS = require("aws-sdk");
+let origin = "";
 
-exports.lambdaHandler = function (event, context, callback) {
+exports.lambdaHandler = function(event, context, callback) {
   console.log("EVENT: ", event);
   // Origin is sometimes small letter ?!?!
   origin = event.headers.Origin ? event.headers.Origin : event.headers.origin;
@@ -11,22 +11,22 @@ exports.lambdaHandler = function (event, context, callback) {
     ? Buffer.from(event.body, "base64")
     : event.body;
 
-  var filePath = "course_images/" + event.queryStringParameters.filename;
+  const filePath = "course_images/" + event.queryStringParameters.filename;
   console.log("File path: ", filePath);
 
-  var params = {
+  const params = {
     Bucket: process.env.BUCKET_NAME,
     Body: decodedImage,
     Key: filePath,
   };
 
-  var s3 = new AWS.S3({ apiVersion: "2006-03-01" });
-  s3.upload(params, function (err, data) {
-    if (err) {
+  const s3 = new AWS.S3({apiVersion: "2006-03-01"});
+  s3.upload(params, function(err, data) {
+    if(err) {
       console.log("Error", err);
-      callback(Error(err), null);
+      callback(new Error(err.message), null);
     }
-    if (data) {
+    if(data) {
       console.log("Upload Success", data);
       callback(null, respond(200, data.Location));
     }
@@ -54,7 +54,7 @@ function getAllowedOrigin() {
     "http://localhost:3001",
     "http://mylms-frontend-app.s3-website.eu-north-1.amazonaws.com",
   ];
-  if (allowedOrigins.includes(origin)) return origin;
+  if(allowedOrigins.includes(origin)) return origin;
 
   return "";
 }
