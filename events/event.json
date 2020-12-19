@@ -1,0 +1,13 @@
+{
+  "body": {
+    "id": "909",
+    "firstname": "test name",
+    "lastname": "testian",
+    "email": "Test@test.se",
+    "username": "test.testian"
+  },
+  "headers": {
+    "Host": "1234567890.execute-api.us-east-1.amazonaws.com",
+    "Origin": "http://mylms-frontend.s3-website.eu-west-2.amazonaws.com"
+  }
+}

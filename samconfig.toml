@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "mylms-backend-save-student"
+s3_bucket = "buckets4lambda"
+s3_prefix = "mylms-student"
+region = "eu-north-1"
+capabilities = "CAPABILITY_IAM"
