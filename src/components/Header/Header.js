@@ -19,7 +19,7 @@ const Header = () => {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon">
-              <i className="fas fa-bars"></i>
+              <i className="fas fa-bars" />
             </span>
           </button>
 
@@ -27,19 +27,19 @@ const Header = () => {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <a className="nav-link" href="/">
-                  <i className="fas fa-home"></i>
+                  <i className="fas fa-home" />
                   Home
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/courses">
-                  <i className="far fa-list-alt"></i>
+                  <i className="far fa-list-alt" />
                   All Courses
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/students">
-                  <i className="fas fa-users"></i>
+                  <i className="fas fa-users" />
                   Students
                 </a>
               </li>
@@ -67,13 +67,13 @@ const Header = () => {
                   <a className="dropdown-item" href="/">
                     Another action
                   </a>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider" />
                   <a
                     className="dropdown-item"
                     href="signOut"
                     onClick={() => console.log('hejdå!')}
                   >
-                    <i className="fas fa-sign-out-alt mr-1"></i>
+                    <i className="fas fa-sign-out-alt mr-1" />
                     Sign out
                   </a>
                 </div>
@@ -84,13 +84,12 @@ const Header = () => {
       </nav>
 
       <header className="masthead text-white text-center">
-        <div className="overlay"></div>
+        <div className="overlay" />
         <div className="container">
           <div className="row">
             <div className="col-xl-9 mx-auto">
-              <h1 className="mb-5">
-                Build a landing page for your business or project and generate
-                more leads!
+              <h1 className="mb-5 code-font">
+                Education is a pen that draws you future.
               </h1>
             </div>
           </div>
