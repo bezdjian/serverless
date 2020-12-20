@@ -320,7 +320,6 @@ class SaveViewCourse extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    console.log('this.isValidFields(); ', this.FormHasValidData());
     if (this.FormHasValidData()) {
       trackPromise(
         CourseService.saveCourse(this.state.course, this.state.imageFile)

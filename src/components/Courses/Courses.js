@@ -14,7 +14,6 @@ class Courses extends Component {
       courses: [],
       message: null,
       error: null,
-      divAlignment: '',
     };
     this.refreshCourses = this.refreshCourses.bind(this);
   }
@@ -51,10 +50,10 @@ class Courses extends Component {
     trackPromise(
       CourseService.deleteCourse(id)
         .then(response => {
-          if(response.status === 200){
+          if (response.status === 200) {
             this.setState({ message: `Course with id ${id} deleted` });
             this.refreshCourses();
-          }else {
+          } else {
             this.setState({ message: `Could not delete course with id ${id}` });
             this.refreshCourses();
           }

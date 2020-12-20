@@ -22,10 +22,8 @@ class Students extends Component {
   refreshStudents() {
     StudentService.findAllStudents()
       .then(response => {
-        const { status, data } = response;
-        if (status === 204) {
-          // 204 NO_CONTENT
-          console.log('IN IF');
+        if (!response.data.students) {
+          // NO_CONTENT
           this.setState({
             message: 'There are no students at this moment',
             error: 'There are no students at this moment',
@@ -33,7 +31,7 @@ class Students extends Component {
           });
         } else {
           this.setState({
-            students: data,
+            students: response.data.students,
             message: 'Students are loaded',
             error: null,
             loading: false,
@@ -55,16 +53,16 @@ class Students extends Component {
       <div className="container-fluid p-2">
         <div className="container">
           <button
-            className="btn btn-success p-2 mb-2"
+            className="btn btn-info p-2 mb-2 rounded-pill"
             onClick={() => this.props.history.push('/view-save-student/' + -1)}
           >
-            <i class="far fa-plus"></i>
+            <i className="fas fa-plus mr-2" />
             Add new Student
           </button>
 
           {this.state.error && (
             <div className="alert alert-danger">
-              <i class="far fa-triangle"></i>
+              <i className="far fa-triangle" />
               {this.state.message}
             </div>
           )}
@@ -94,12 +92,12 @@ class Students extends Component {
                     </p>
                     <p className="card-text">Email: {student.email}</p>
                     <p className="card-link">{student.country}</p>
-                    <div className="btn-group btn-group-actions" role="group">
+                    <div className="btn-group" role="group">
                       <button
                         className="btn btn-danger"
                         onClick={() => this.deleteStudentClicked(student.id)}
                       >
-                        <i class="far fa-trash-undo-alt"></i>
+                        <i className="fas fa-trash-alt fa-2x" />
                       </button>
                       <button
                         className="btn btn-info"
@@ -109,7 +107,7 @@ class Students extends Component {
                           )
                         }
                       >
-                        <i class="far fa-edit"></i>
+                        <i className="fas fa-edit fa-2x" />
                       </button>
                     </div>
                   </div>

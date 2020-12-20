@@ -32,7 +32,9 @@ class CourseService {
     console.log('imageUrl: ', imageUrl);
     course.imageUrl = imageUrl;
     // When creating a new course, ID is null, so we assign an UUID.
-    if (!course.id || course.id === -1) course.id = uuid().replace(/-/g, '');
+    if (!course.id || course.id < 0) {
+      course.id = uuid().replace(/-/g, '');
+    }
 
     return this.save(course);
   }

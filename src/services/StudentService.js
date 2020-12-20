@@ -1,24 +1,28 @@
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 
-const BASE_URL = process.env.REACT_APP_SERVICE_URL;
-const STUDENT_API_URL = BASE_URL + '/mylms-service/api/student';
+const FETCH_STUDENT_API = process.env.REACT_APP_FETCH_STUDENT_URL;
+const SAVE_STUDENT_API = process.env.REACT_APP_SAVE_STUDENT_URL;
 
 class StudentService {
   findAllStudents() {
     console.log(process.env);
-    return axios.get(`${STUDENT_API_URL}/all`);
+    return axios.get(`${FETCH_STUDENT_API}/students/all`);
   }
 
   findStudent(id) {
-    return axios.get(`${STUDENT_API_URL}/` + id);
+    return axios.get(`${FETCH_STUDENT_API}/students/` + id);
   }
 
   deleteStudent(id) {
-    return axios.delete(`${STUDENT_API_URL}/delete/${id}`);
+    return axios.delete(`${SAVE_STUDENT_API}/remove/${id}`);
   }
 
-  createStudent(data) {
-    return axios.post(`${STUDENT_API_URL}/save`, data, {
+  createStudent(student) {
+    if (!student.id || student.id < 0) {
+      student.id = uuid().replace(/-/g, '');
+    }
+    return axios.post(`${SAVE_STUDENT_API}/save`, JSON.stringify(student), {
       headers: { 'Content-Type': 'application/json' },
     });
   }

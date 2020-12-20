@@ -1,14 +1,17 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import StudentService from '../../services/StudentService';
+import {trackPromise} from 'react-promise-tracker';
+
+import './style.css';
 
 class SaveViewStudent extends Component {
   constructor(...args) {
     super(...args);
     //Get the Student ID from params.
-    const { id } = this.props.match.params;
+    const {id} = this.props.match.params;
 
     this.state = {
-      student: {
+      students: {
         id: id,
         username: '',
         firstname: '',
@@ -17,8 +20,7 @@ class SaveViewStudent extends Component {
         country: '',
         image: '',
       },
-      validFields: id > 0,
-      text: 'Create Student',
+      invalidFields: false,
       error: null,
       disabled: id <= 0,
     };
@@ -34,48 +36,32 @@ class SaveViewStudent extends Component {
     this.handleCountryChange = this.handleCountryChange.bind(this);
 
     // Call load student to set the values in this.state
-    if (id > 0) {
-      this.loadViewingStudent(id)
+    if(id !== -1) {
+      trackPromise(
+        StudentService.findStudent(id)
         .then(response => {
-          console.log('Viewing Student ', response.data);
+          console.log('Viewing Student ', response.data.students[0]);
           this.setState({
-            student: {
-              ...response.data,
+            students: {
+              ...response.data.students[0],
             },
-            text: 'Edit Student',
           });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err)),
+      );
     }
-  }
-
-  componentDidMount() {
-    //this.loadCategories();
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  loadViewingStudent(id) {
-    return StudentService.findStudent(id);
-  }
-
   render() {
     return (
-      <div className="card">
-        <h5 className="card-header info-color text-center py-4 mb-4">
-          <strong>{this.state.text}</strong>
-        </h5>
-
-        {!this.state.validFields && (
-          <div className="alert alert-danger">
-            <p>
-              <i className="fas fa-exclamation-triangle" />
-              All fields are required
-            </p>
-          </div>
-        )}
+      <div className="container pt-5 pb-5">
+        <div className="mb-4">
+          <h2>Save student</h2>
+        </div>
 
         {this.state.error && (
           <div className="alert alert-danger">
@@ -83,21 +69,22 @@ class SaveViewStudent extends Component {
           </div>
         )}
 
-        {/* Catd Content */}
-        <div className="card-body px-lg-5 pt-0">
+        {/* Card Content */}
+        <div className="pt-0">
           {/* Form */}
           <form onSubmit={this.handleSubmit}>
             <div className="form-row">
               <div className="col mb-3">
                 {/* user name */}
                 <div className="md-form">
+                  <label className="required">*</label>
                   <input
                     type="text"
                     className="form-control"
                     id="firstname"
                     placeholder="Firstname"
                     name="firstname"
-                    value={this.state.student.firstname}
+                    value={this.state.students.firstname}
                     onChange={this.handleStudentFirstNameChange}
                   />
                 </div>
@@ -105,13 +92,14 @@ class SaveViewStudent extends Component {
               <div className="col">
                 {/* Last name */}
                 <div className="md-form">
+                  <label className="required">*</label>
                   <input
                     type="text"
                     className="form-control"
                     id="lastname"
                     placeholder="Lastname"
                     name="lastname"
-                    value={this.state.student.lastname}
+                    value={this.state.students.lastname}
                     onChange={this.handleStudentLastNameChange}
                   />
                 </div>
@@ -121,13 +109,14 @@ class SaveViewStudent extends Component {
             <div className="form-row">
               <div className="col mb-3">
                 <div className="md-form">
+                  <label className="required">*</label>
                   <input
                     type="text"
                     className="form-control"
                     id="username"
                     placeholder="Username"
                     name="username"
-                    value={this.state.student.username}
+                    value={this.state.students.username}
                     onChange={this.handleUsernameChange}
                   />
                 </div>
@@ -137,13 +126,14 @@ class SaveViewStudent extends Component {
             <div className="form-row">
               <div className="col mb-3">
                 <div className="md-form">
+                  <label className="required">*</label>
                   <input
                     type="text"
                     className="form-control"
                     id="email"
                     placeholder="Email"
                     name="email"
-                    value={this.state.student.email}
+                    value={this.state.students.email}
                     onChange={this.handleEmailChange}
                   />
                 </div>
@@ -159,21 +149,36 @@ class SaveViewStudent extends Component {
                     id="country"
                     placeholder="Country"
                     name="country"
-                    value={this.state.student.country}
+                    value={this.state.students.country}
                     onChange={this.handleCountryChange}
                   />
                 </div>
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="btn btn-outline-info"
-              disabled={this.state.disabled}
-            >
-              <i className="fas fa-save mr-2 fa-2x" />
-              <label className="code-font">Save</label>
-            </button>
+            <div className="form-row">
+              <button
+                type="button"
+                className="btn btn-outline-info"
+                onClick={() => (window.location = '/students')}
+              >
+                <i className="fas fa-backward mr-2 fa-2x" />
+              </button>
+              <button
+                type="submit"
+                className="btn btn-info"
+                disabled={this.state.disabled}
+              >
+                <i className="fas fa-save mr-2 fa-2x" />
+              </button>
+              <button
+                type="reset"
+                className="btn btn-info"
+                onClick={() => this.clearForm()}
+              >
+                <i className="fas fa-redo mr-2 fa-2x" />
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -183,7 +188,7 @@ class SaveViewStudent extends Component {
   handleUsernameChange(event) {
     this.setState({
       student: {
-        ...this.state.student,
+        ...this.state.students,
         username: event.target.value,
       },
     });
@@ -193,7 +198,7 @@ class SaveViewStudent extends Component {
   handleStudentFirstNameChange(event) {
     this.setState({
       student: {
-        ...this.state.student,
+        ...this.state.students,
         firstname: event.target.value,
       },
     });
@@ -203,7 +208,7 @@ class SaveViewStudent extends Component {
   handleStudentLastNameChange(event) {
     this.setState({
       student: {
-        ...this.state.student,
+        ...this.state.students,
         lastname: event.target.value,
       },
     });
@@ -213,7 +218,7 @@ class SaveViewStudent extends Component {
   handleEmailChange(event) {
     this.setState({
       student: {
-        ...this.state.student,
+        ...this.state.students,
         email: event.target.value,
       },
     });
@@ -223,7 +228,7 @@ class SaveViewStudent extends Component {
   handleCountryChange(event) {
     this.setState({
       student: {
-        ...this.state.student,
+        ...this.state.students,
         country: event.target.value,
       },
     });
@@ -232,11 +237,10 @@ class SaveViewStudent extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('*** Form values in this.state.student ***');
-    console.log(this.state.student);
 
-    if (this.validateFields()) {
-      StudentService.createStudent(this.state.student)
+    if(this.validFormData()) {
+      trackPromise(
+        StudentService.createStudent(this.state.students)
         .then(() => {
           this.props.history.push('/students');
         })
@@ -245,38 +249,37 @@ class SaveViewStudent extends Component {
           this.setState({
             error: err.message,
           });
-        });
+        }),
+      );
     } else {
       this.setState({
         disabled: true,
-        validFields: false,
+        invalidFields: false,
       });
     }
   }
 
-  validateFields() {
-    if (
-      this.state.student.username &&
-      this.state.student.firstname &&
-      this.state.student.lastname
-    ) {
-      this.setState({ validFields: true });
-      return true;
-    }
-    return false;
+  validFormData() {
+    return (
+      this.state.students.username !== '' &&
+      this.state.students.firstname !== '' &&
+      this.state.students.lastname !== '' &&
+      this.state.students.username != null &&
+      this.state.students.firstname != null &&
+      this.state.students.lastname != null
+    );
   }
 
   toggleButton_requiredFields() {
-    console.log('** this.validateFields(): ', this.validateFields());
-    if (this.validateFields()) {
+    if(this.validFormData()) {
       this.setState({
         disabled: false,
-        validFields: true,
+        invalidFields: true,
       });
     } else {
       this.setState({
         disabled: true,
-        validFields: false,
+        invalidFields: false,
       });
     }
   }
