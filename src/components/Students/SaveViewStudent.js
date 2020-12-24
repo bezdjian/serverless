@@ -11,7 +11,7 @@ class SaveViewStudent extends Component {
     const {id} = this.props.match.params;
 
     this.state = {
-      students: {
+      student: {
         id: id,
         username: '',
         firstname: '',
@@ -42,7 +42,7 @@ class SaveViewStudent extends Component {
         .then(response => {
           console.log('Viewing Student ', response.data.students[0]);
           this.setState({
-            students: {
+            student: {
               ...response.data.students[0],
             },
           });
@@ -84,7 +84,7 @@ class SaveViewStudent extends Component {
                     id="firstname"
                     placeholder="Firstname"
                     name="firstname"
-                    value={this.state.students.firstname}
+                    value={this.state.student.firstname}
                     onChange={this.handleStudentFirstNameChange}
                   />
                 </div>
@@ -99,7 +99,7 @@ class SaveViewStudent extends Component {
                     id="lastname"
                     placeholder="Lastname"
                     name="lastname"
-                    value={this.state.students.lastname}
+                    value={this.state.student.lastname}
                     onChange={this.handleStudentLastNameChange}
                   />
                 </div>
@@ -116,7 +116,7 @@ class SaveViewStudent extends Component {
                     id="username"
                     placeholder="Username"
                     name="username"
-                    value={this.state.students.username}
+                    value={this.state.student.username}
                     onChange={this.handleUsernameChange}
                   />
                 </div>
@@ -133,7 +133,7 @@ class SaveViewStudent extends Component {
                     id="email"
                     placeholder="Email"
                     name="email"
-                    value={this.state.students.email}
+                    value={this.state.student.email}
                     onChange={this.handleEmailChange}
                   />
                 </div>
@@ -149,7 +149,7 @@ class SaveViewStudent extends Component {
                     id="country"
                     placeholder="Country"
                     name="country"
-                    value={this.state.students.country}
+                    value={this.state.student.country}
                     onChange={this.handleCountryChange}
                   />
                 </div>
@@ -188,7 +188,7 @@ class SaveViewStudent extends Component {
   handleUsernameChange(event) {
     this.setState({
       student: {
-        ...this.state.students,
+        ...this.state.student,
         username: event.target.value,
       },
     });
@@ -198,7 +198,7 @@ class SaveViewStudent extends Component {
   handleStudentFirstNameChange(event) {
     this.setState({
       student: {
-        ...this.state.students,
+        ...this.state.student,
         firstname: event.target.value,
       },
     });
@@ -208,7 +208,7 @@ class SaveViewStudent extends Component {
   handleStudentLastNameChange(event) {
     this.setState({
       student: {
-        ...this.state.students,
+        ...this.state.student,
         lastname: event.target.value,
       },
     });
@@ -218,7 +218,7 @@ class SaveViewStudent extends Component {
   handleEmailChange(event) {
     this.setState({
       student: {
-        ...this.state.students,
+        ...this.state.student,
         email: event.target.value,
       },
     });
@@ -228,7 +228,7 @@ class SaveViewStudent extends Component {
   handleCountryChange(event) {
     this.setState({
       student: {
-        ...this.state.students,
+        ...this.state.student,
         country: event.target.value,
       },
     });
@@ -240,7 +240,7 @@ class SaveViewStudent extends Component {
 
     if(this.validFormData()) {
       trackPromise(
-        StudentService.createStudent(this.state.students)
+        StudentService.createStudent(this.state.student)
         .then(() => {
           this.props.history.push('/students');
         })
@@ -261,12 +261,12 @@ class SaveViewStudent extends Component {
 
   validFormData() {
     return (
-      this.state.students.username !== '' &&
-      this.state.students.firstname !== '' &&
-      this.state.students.lastname !== '' &&
-      this.state.students.username != null &&
-      this.state.students.firstname != null &&
-      this.state.students.lastname != null
+      this.state.student.username !== '' &&
+      this.state.student.firstname !== '' &&
+      this.state.student.lastname !== '' &&
+      this.state.student.username != null &&
+      this.state.student.firstname != null &&
+      this.state.student.lastname != null
     );
   }
 

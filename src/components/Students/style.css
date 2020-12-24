@@ -3,3 +3,18 @@
   left: -15px !important;
   top: -5px !important;
 }
+
+.card-body {
+  min-height: 300px;
+}
+
+.btn-absolute .btn{
+  margin: 10px;
+    padding: 10px;
+    height: 40px;
+}
+.btn-absolute {
+  position: absolute;
+  bottom: 0;
+  left: 8px;
+}

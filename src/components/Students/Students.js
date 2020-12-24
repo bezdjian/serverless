@@ -91,13 +91,13 @@ class Students extends Component {
                       {student.username}
                     </p>
                     <p className="card-text">Email: {student.email}</p>
-                    <p className="card-link">{student.country}</p>
-                    <div className="btn-group" role="group">
+                    <p className="card-text">Country: {student.country}</p>
+                    <div className="btn-group btn-absolute" role="group">
                       <button
                         className="btn btn-danger"
                         onClick={() => this.deleteStudentClicked(student.id)}
                       >
-                        <i className="fas fa-trash-alt fa-2x" />
+                        <i className="fas fa-trash-alt" />
                       </button>
                       <button
                         className="btn btn-info"
@@ -107,7 +107,7 @@ class Students extends Component {
                           )
                         }
                       >
-                        <i className="fas fa-edit fa-2x" />
+                        <i className="fas fa-edit" />
                       </button>
                     </div>
                   </div>
