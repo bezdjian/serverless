@@ -4,7 +4,8 @@
     "firstname": "test name",
     "lastname": "testian",
     "email": "Test@test.se",
-    "username": "test.testian"
+    "username": "test.testian",
+    "country": "test Ocean"
   },
   "headers": {
     "Host": "1234567890.execute-api.us-east-1.amazonaws.com",

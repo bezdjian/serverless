@@ -61,6 +61,7 @@ function createDdbParams(student) {
       lastname: student.lastname,
       email: student.email,
       username: student.username,
+      country: student.country,
     },
   };
 }
