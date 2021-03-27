@@ -12,16 +12,8 @@ h2, p, label, input, select, option, textarea {
   background-size: cover;
 }
 
-.si1 {
-  background-image: url('img/bg-showcase-1.jpg');
-}
-
 .si2 {
   background-image: url('img/bg-showcase-2.jpg');
-}
-
-.si3 {
-  background-image: url('img/bg-showcase-3.jpg');
 }
 
 .aws-img {
