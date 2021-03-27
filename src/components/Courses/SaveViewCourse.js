@@ -178,24 +178,10 @@ class SaveViewCourse extends Component {
           <div className="form-row">
             <div className="col">
               <div className="md-form">
-                <select
-                  className="form-group"
-                  id="categoryid"
-                  placeholder="Category"
-                  name="categoryid"
-                  value={this.state.course.category}
-                  onChange={this.handleCategoryChange1}
-                >
-                  {this.state.categories.map(option => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
                 <Select
                   options={this.state.categories}
                   value={this.state.course.category}
-                  placeholder="Category"
+                  placeholder={this.state.course.category}
                   onChange={this.handleCategoryChange}
                 />
               </div>
