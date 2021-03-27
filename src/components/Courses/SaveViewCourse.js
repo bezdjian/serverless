@@ -112,6 +112,21 @@ class SaveViewCourse extends Component {
                 />
               </div>
             </div>
+            <div className="col">
+              <div className="md-form">
+                <Select
+                  className="category_list"
+                  options={this.state.categories}
+                  value={this.state.course.category}
+                  placeholder={this.state.course.category}
+                  onChange={this.handleCategoryChange}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="form-row">
+            
           </div>
 
           <div className="form-row">
@@ -170,19 +185,6 @@ class SaveViewCourse extends Component {
                   name="description"
                   value={this.state.course.description}
                   onChange={this.handleDescriptionChange}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="form-row">
-            <div className="col">
-              <div className="md-form">
-                <Select
-                  options={this.state.categories}
-                  value={this.state.course.category}
-                  placeholder={this.state.course.category}
-                  onChange={this.handleCategoryChange}
                 />
               </div>
             </div>

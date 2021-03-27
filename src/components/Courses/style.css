@@ -36,6 +36,20 @@ h2, p, label, input, select, option, textarea {
   padding: 3rem
 }
 
+.category_list {
+    border: 0;
+    border-bottom: 1px;
+    border-bottom-color: hsl(0,0%,80%);
+    border-bottom-style: solid;
+    height: 41px;
+    border-radius: 0;
+    width: 50%;
+}
+/* the div inside Select */
+.category_list div{
+  border: 0;
+}
+
 @media (min-width: 768px) {
   .showcase .showcase-text {
     padding: 7rem
