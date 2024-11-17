@@ -15,6 +15,7 @@ class StudentService {
   }
 
   deleteStudent(id) {
+    // FIX URL! Create Delete API
     return axios.delete(`${SAVE_STUDENT_API}/remove/${id}`);
   }
 
