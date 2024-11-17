@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StudentService from '../../services/StudentService';
+import { trackPromise } from 'react-promise-tracker';
 
 import user from './img/user.png';
 
@@ -10,7 +11,6 @@ class Students extends Component {
       students: [],
       message: null,
       error: null,
-      loading: true,
     };
     this.refreshStudents = this.refreshStudents.bind(this);
   }
@@ -20,32 +20,31 @@ class Students extends Component {
   }
 
   refreshStudents() {
-    StudentService.findAllStudents()
-      .then(response => {
-        if (!response.data.students) {
-          // NO_CONTENT
+    trackPromise(
+      StudentService.findAllStudents()
+        .then((response) => {
+          if (!response.data.students) {
+            // NO_CONTENT
+            this.setState({
+              message: 'There are no students at this moment',
+              error: 'There are no students at this moment',
+            });
+          } else {
+            this.setState({
+              students: response.data.students,
+              message: 'Students are loaded',
+              error: null,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log('findAllStudents: ERROR: ' + error.message);
           this.setState({
-            message: 'There are no students at this moment',
-            error: 'There are no students at this moment',
-            loading: false,
+            error: error,
+            message: error.message,
           });
-        } else {
-          this.setState({
-            students: response.data.students,
-            message: 'Students are loaded',
-            error: null,
-            loading: false,
-          });
-        }
-      })
-      .catch(error => {
-        console.log('findAllStudents: ERROR: ' + error.message);
-        this.setState({
-          error: error,
-          message: error.message,
-          loading: false,
-        });
-      });
+        }),
+    );
   }
 
   render() {
@@ -68,7 +67,7 @@ class Students extends Component {
           )}
           <div className="card-columns" key="cardsKey">
             {this.state.students &&
-              this.state.students.map(student => (
+              this.state.students.map((student) => (
                 <div className="card bg-light" key={student.id}>
                   <img
                     onClick={() =>
@@ -120,12 +119,13 @@ class Students extends Component {
   }
 
   deleteStudentClicked(id) {
-    // Add trackPromise
-    StudentService.deleteStudent(id).then(response => {
-      console.log('Student with id', id, 'deleted');
-      this.setState({ message: `Student with id ${id} deleted` });
-      this.refreshStudents();
-    });
+    trackPromise(
+      StudentService.deleteStudent(id).then((response) => {
+        console.log('Student with id', id, 'deleted');
+        this.setState({ message: `Student with id ${id} deleted` });
+        this.refreshStudents();
+      })
+    );
   }
 }
 
