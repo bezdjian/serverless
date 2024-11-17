@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from 'react-loader-spinner';
+import { Audio } from 'react-loader-spinner';
 import { usePromiseTracker } from 'react-promise-tracker';
 
 const LoadingIndicator = () => {
@@ -22,7 +22,15 @@ const LoadingIndicator = () => {
           zIndex: 1000,
         }}
       >
-        <Loader type="Audio" color="#2BAD60" width={100} height={100} />
+        <Audio
+          height="80"
+          width="80"
+          radius="9"
+          color="green"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass
+        />
       </div>
     )
   );
