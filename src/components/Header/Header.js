@@ -89,7 +89,7 @@ const Header = () => {
           <div className="row">
             <div className="col-xl-9 mx-auto">
               <h1 className="mb-5 code-font">
-                Education is a pen that draws you future.
+                Education is a pen that draws your future.
               </h1>
             </div>
           </div>
